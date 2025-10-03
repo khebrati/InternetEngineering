@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="This page descirbes the resume of a person (I guess african-american!)">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>
+        Resume
+    </title>
+    <style>
+        @font-face {
+            font-family: 'Roboto';
+            src: url('fonts/Roboto-VariableFont_wdth\,wght.ttf') format('truetype');
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Roboto';
+            src: url('fonts/Roboto-Italic-VariableFont_wdth\,wght.ttf') format('truetype');
+            font-style: italic;
+        }
+
+        body {
+            font-family: 'Roboto';
+        }
+
+        h1,h2,h3,h4,h5,h6,p{
+            margin: 0;
+        }
+
+        .profile-picture {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+        }
+
+        .job-title {
+            font-size: x-large;
+        }
+
+        .blue-text {
+            color: #638FB6
+        }
+
+        @media (max-width: 600px) {
+            .profile-picture {
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <img src="profile-picture.jpg" class="profile-picture">
+    <div class="name-title">
+        <h1>Carter Jameson</h1>
+        <h1 class="job-title blue-text">Android engineer</h1>
+    </div>
+    <div class="contact">
+        <h2>Contact</h2>
+        <p>+1 2345 6789</p>
+        <p>carterjameson@gmail.com</p>
+        <p>Some where in newyork ciy</p>
+    </div>
+    <div class="skills">
+        <h2>
+            Skills
+        </h2>
+        <ul>
+            <li>Compose multiplatform</li>
+            <li>Kotlin</li>
+            <li>Java</li>
+            <li>Database with Room/SQLite</li>
+            <li>Dependenciy injection with koin</li>
+        </ul>
+    </div>
+    <div class="languages">
+        <h2>
+            Languages
+        </h2>
+        <ul>
+            <li>English: Proficient</li>
+        </ul>
+    </div>
+    <div class="hobbies">
+        <h2>
+            Hobbies
+        </h2>
+        <ul>
+            <li>
+                Reading
+            </li>
+            <li>
+                Gaming
+            </li>
+        </ul>
+    </div>
+
+</body>
