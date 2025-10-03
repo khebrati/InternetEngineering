@@ -21,6 +21,12 @@
         }
 
 
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
         .job-title {
             font-size: 1.5rem;
         }
@@ -36,7 +42,8 @@
         h4,
         h5,
         h6,
-        p {
+        p,
+        body {
             margin: 0;
         }
 
@@ -61,20 +68,34 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
-            width: 300px;
+            min-width: 300px;
             padding: 20px;
             background-color: #222933;
         }
 
-        .sidebar p,
-        h1,
-        h2,
-        ul {
-            color: white;
+        .content {
+            display: flex;
+            flex-direction: column;
         }
 
-        .content {
-            flex-grow: 1;
+        .content section {
+            padding: 20px; 
+            border-bottom: 1px solid #eee;
+        }
+        .content h2 {
+            margin-bottom: 10px;
+            color: #222933;
+        }
+        .content h3 {
+            margin-top: 15px;
+            margin-bottom: 5px;
+            color: #638FB6;
+        }
+        .sidebar p,
+        .sidebar h1,
+        .sidebar h2,
+        .sidebar ul {
+            color: white;
         }
 
         .profile-name {
@@ -83,7 +104,8 @@
             flex-direction: column;
             align-items: center;
         }
-        .name-title{
+
+        .name-title {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -96,6 +118,7 @@
 
             .sidebar {
                 width: 100%;
+                height: auto;
             }
 
             .profile-picture {
@@ -111,7 +134,7 @@
             }
 
             .content {
-                flex-grow: 96%;
+                width: 96%;
             }
         }
     </style>
@@ -168,7 +191,54 @@
             </div>
         </div>
         <div class="content">
+            <section>
+                <h2>PROFILE</h2>
+                <p>I am a software engineer with experience in a variety of programming languages and a track record of
+                    delivering high-quality code. I am skilled in problem-solving and have a strong background in
+                    computer science. I am a strong communicator and enjoy working collaboratively with others.</p>
+            </section>
 
+            <section>
+                <h2>WORK EXPERIENCE</h2>
+
+                <div>
+                    <h3>Senior Software Developer</h3>
+                    <p>Company - Country</p>
+                    <p>Jan 2022 - Dec 2023</p>
+                    <ul>
+                        <li>Developed and maintained software using Java, Python, and C++</li>
+                        <li>Led cross-functional teams to deliver successful software projects</li>
+                        <li>write a work experience of a senior software engineer in bullet points</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3>Web Developer</h3>
+                    <p>Company - Country</p>
+                    <p>Jan 2021 - Dec 2021</p>
+                    <ul>
+                        <li>Developed and maintained various web applications using languages such as HTML, CSS,
+                            JavaScript, and PHP</li>
+                        <li>Worked with cross-functional teams to gather requirements and design user interfaces</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2>EDUCATION</h2>
+
+                <div>
+                    <h3>Masters in Software Engineering</h3>
+                    <p>Jan 2019 - Dec 2020</p>
+                    <p>XYX University, Bangalore</p>
+                </div>
+
+                <div>
+                    <h3>Bachelor in Computer Science</h3>
+                    <p>Jan 2015 - Dec 2018</p>
+                    <p>XYX University, Bangalore</p>
+                </div>
+            </section>
         </div>
     </div>
 
