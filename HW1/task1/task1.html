@@ -7,6 +7,7 @@
     <title>
         Resume
     </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
         @font-face {
             font-family: 'Roboto';
@@ -70,10 +71,11 @@
         .content {
             display: flex;
             flex-direction: column;
+            padding-top: 40px;
         }
 
         .content section {
-            padding: 20px;
+            padding: 20px 40px;
             border-bottom: 1px solid #eee;
         }
 
@@ -116,14 +118,34 @@
             flex-direction: column;
             align-items: center;
         }
-        
-        .company-country{
+
+        .company-country {
             display: flex;
             flex-direction: row;
             width: 100%;
             justify-content: space-between;
         }
 
+        .icon-list {
+            list-style: none; 
+            padding-left: 0;
+            margin-left: 0;
+        }
+
+        .icon-list li {
+            margin-bottom: 8px;
+        }
+
+        .icon-list .fa-solid {
+            color: #638FB6; 
+            margin-right: 10px;
+            width: 20px;
+            text-align: center; 
+        }
+        .icon-list .fa-solid i{
+            size: 20px;
+        }
+        
         @media (max-width: 600px) {
             .container {
                 flex-direction: column;
@@ -165,9 +187,20 @@
             </div>
             <div class="contact">
                 <h2>Contact</h2>
-                <p>+1 2345 6789</p>
-                <p>carterjameson@gmail.com</p>
-                <p>Some where in newyork ciy</p>
+                <ul class="icon-list">
+                    <li>
+                        <i class="fa-solid fa-phone"></i>
+                        +1 2345 6789
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-envelope"></i>
+                        carterjameson@gmail.com
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-location-dot"></i>
+                        Some where in newyork ciy
+                    </li>
+                </ul>
             </div>
             <div class="skills">
                 <h2>
