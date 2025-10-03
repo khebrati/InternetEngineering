@@ -27,10 +27,6 @@
             box-sizing: border-box;
         }
 
-        .job-title {
-            font-size: 1.5rem;
-        }
-
 
         body {
             font-family: 'Roboto';
@@ -54,9 +50,6 @@
         }
 
 
-        .job-title{
-            color: #627A98;
-        }
 
         .container {
             display: flex;
@@ -80,13 +73,15 @@
         }
 
         .content section {
-            padding: 20px; 
+            padding: 20px;
             border-bottom: 1px solid #eee;
         }
+
         .content h2 {
             margin-bottom: 10px;
             color: #222933;
         }
+
         .content h3 {
             margin-top: 15px;
             margin-bottom: 5px;
@@ -100,6 +95,15 @@
             color: white;
         }
 
+        #job-title {
+            font-size: 1.3em;
+            color: #627A98;
+        }
+
+        ul {
+            padding: 0px 20px;
+        }
+
         .profile-name {
             display: flex;
             gap: 20px;
@@ -111,6 +115,13 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+        }
+        
+        .company-country{
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            justify-content: space-between;
         }
 
         @media (max-width: 600px) {
@@ -149,7 +160,7 @@
                 <img src="profile-picture.jpg" class="profile-picture">
                 <div class="name-title">
                     <h1>Carter Jameson</h1>
-                    <h1 class="job-title">Android engineer</h1>
+                    <h1 id="job-title">Android engineer</h1>
                 </div>
             </div>
             <div class="contact">
@@ -205,8 +216,10 @@
 
                 <div>
                     <h3>Senior Software Developer</h3>
-                    <p>Company - Country</p>
-                    <p>Jan 2022 - Dec 2023</p>
+                    <div class="company-country">
+                        <p>Company - Country</p>
+                        <p>Jan 2022 - Dec 2023</p>
+                    </div>
                     <ul>
                         <li>Developed and maintained software using Java, Python, and C++</li>
                         <li>Led cross-functional teams to deliver successful software projects</li>
@@ -216,8 +229,10 @@
 
                 <div>
                     <h3>Web Developer</h3>
-                    <p>Company - Country</p>
-                    <p>Jan 2021 - Dec 2021</p>
+                    <div class="company-country">
+                        <p>Company - Country</p>
+                        <p>Jan 2021 - Dec 2021</p>
+                    </div>
                     <ul>
                         <li>Developed and maintained various web applications using languages such as HTML, CSS,
                             JavaScript, and PHP</li>
