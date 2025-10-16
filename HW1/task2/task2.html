@@ -44,7 +44,7 @@
         }
 
         #samsung-logo {
-            width: 10%;
+            width: 8%;
             height: auto;
         }
 
@@ -54,8 +54,13 @@
         }
 
         .nav-destinations {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
             font-weight: 500;
-            font-size: clamp(0.5rem, 1.2vw, 2rem);
+            width: 50vw;
+            font-size: clamp(0.5rem, 1vw, 2rem);
         }
         .navbar-icons{
             display: flex;
@@ -64,6 +69,22 @@
             align-items: center;
             width: 6vw;
         }
+        nav{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0 20px 0 20px;
+        }
+        a{
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+        }
+
+        .nav-destinations li a, .navbar-icons li a {
+            display: block; /* Makes the entire area clickable */
+        }
     </style>
 </head>
 
@@ -71,38 +92,29 @@
 <nav>
     <img id="samsung-logo" src="samsung-logo.jpg" alt="samsung-log">
     <ul class="nav-destinations">
-        <li>
-            Shop
-        </li>
-        <li>
-            Mobile
-        </li>
-        <li>
-            TV & AV
-        </li>
-        <li>
-            Appliance
-        </li>
-        <li>
-            Computing & Displays
-        </li>
-        <li>
-            Wearables
-        </li>
-        <li>
-            Accessories
-        </li>
-
+        <li><a href="">Shop</a></li>
+        <li><a href="">Mobile</a></li>
+        <li><a href="">TV & AV</a></li>
+        <li><a href="">Appliance</a></li>
+        <li><a href="">Computing & Displays</a></li>
+        <li><a href="">Wearables</a></li>
+        <li><a href="">Accessories</a></li>
     </ul>
     <ul class="navbar-icons">
         <li>
-            <span class="material-symbols-outlined">search</span>
+            <a href="">
+                <span class="material-symbols-outlined">search</span>
+            </a>
         </li>
         <li>
-            <span class="material-symbols-outlined">shopping_bag</span>
+            <a href="">
+                <span class="material-symbols-outlined">shopping_bag</span>
+            </a>
         </li>
         <li>
-            <span class="material-symbols-outlined">account_circle</span>
+            <a href="">
+                <span class="material-symbols-outlined">account_circle</span>
+            </a>
         </li>
     </ul>
 </nav>
