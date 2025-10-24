@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 class Task {
-    constructor(id, name, isEditMode = false,isDone = false) {
+    constructor(id, name, isEditMode = false, isDone = false) {
         this.id = id
         this.name = name
         this.isEditMode = isEditMode
@@ -17,7 +17,7 @@ function generateId() {
     return lastId++
 }
 
-const tasksList = []
+let tasksList = []
 
 function createDivWithClass(className) {
     const editButton = document.createElement('div')
@@ -83,9 +83,9 @@ function createCheckbox(task) {
         checkbox.checked = task.isDone
         const labelElement = document.createElement('label')
         labelElement.innerText = task.name
-        if(task.isDone){
+        if (task.isDone) {
             labelElement.classList.add('done')
-        }else{
+        } else {
             labelElement.classList.remove('done')
         }
         checkBoxLabel.appendChild(labelElement)
@@ -100,19 +100,42 @@ function updateUI() {
         appendTaskInUi(task)
     )
 }
+function load(){
+    const tasksString = localStorage.getItem('tasks')
+    if(tasksString == null) return
+    tasksList = JSON.parse(tasksString)
+    if(tasksList.length === 0) return;
+    lastId =
+        Math.max(...tasksList.map(t => t.id)) + 1
+    updateUI()
+}
+function save() {
+    localStorage.setItem('tasks',JSON.stringify(tasksList))
+}
+
+function updateUIAndSave() {
+    updateUI();
+    save();
+}
 
 function handleAddEvent() {
     const addButton = document.getElementById('add-button')
     addButton.addEventListener('click', function () {
         const taskInput = document.getElementById('task-input');
         const text = taskInput.value;
-        if (text) {
-            console.log(`input task name ${text}`);
-            taskInput.value = "";
-            const task = new Task(generateId(), text)
-            tasksList.push(task)
-            updateUI()
+        if(!text){
+            alert('Empty task name!')
+            return;
         }
+        if (text.length > 30) {
+            alert('Your task name length can not exceed 30')
+            return
+        }
+        console.log(`input task name ${text}`);
+        taskInput.value = "";
+        const task = new Task(generateId(), text)
+        tasksList.push(task)
+        updateUIAndSave()
     })
 }
 
@@ -127,7 +150,7 @@ function removeTaskWithId(taskId) {
 function handleDeleteEvent() {
     handleClickTaskEvent('delete-button', function (taskId) {
         removeTaskWithId(taskId);
-        updateUI()
+        updateUIAndSave()
     })
 }
 
@@ -145,10 +168,10 @@ function handleClickTaskEvent(buttonClass, onReceiveId) {
 }
 
 function handleEditEvent() {
-    handleClickTaskEvent('edit-button',function (taskId) {
+    handleClickTaskEvent('edit-button', function (taskId) {
         const task = tasksList.find(task => task.id === taskId)
         task.isEditMode = true
-        updateUI()
+        updateUIAndSave()
     })
 }
 
@@ -163,20 +186,21 @@ function handleEditSaved() {
             task.isEditMode = false
             const editInputField = taskDiv.querySelector('.edit-input')
             task.name = editInputField.value
-            updateUI()
+            updateUIAndSave()
         }
     })
 }
 
 function handleDoneEvent() {
-    handleClickTaskEvent('task-checkbox',function (taskId) {
+    handleClickTaskEvent('task-checkbox', function (taskId) {
         const task = tasksList.find(task => task.id === taskId)
         task.isDone = !task.isDone
-        updateUI()
+        updateUIAndSave()
     })
 }
 
 function handleContentLoaded() {
+    load()
     handleAddEvent();
     handleDeleteEvent()
     handleEditEvent();
