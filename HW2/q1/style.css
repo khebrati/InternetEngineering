@@ -35,6 +35,9 @@ div{
 #task-input{
     width: 15vw;
 }
+.edit-input{
+    width: 100px;
+}
 #enter-task{
     justify-content: space-between;
 }

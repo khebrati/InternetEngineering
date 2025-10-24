@@ -3,9 +3,10 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 class Task {
-    constructor(id, name) {
+    constructor(id, name,isEditMode = false) {
         this.id = id
         this.name = name
+        this.isEditMode = isEditMode
     }
 }
 
@@ -43,7 +44,7 @@ function createDeleteEdit() {
 
 function createTaskElement(task) {
     const deleteEdit = createDeleteEdit();
-    const checkbox = createCheckbox(task.name);
+    const checkbox = createCheckbox(task);
     const taskDiv = createDivWithClass('task')
     taskDiv.dataset.id = task.id
     taskDiv.appendChild(checkbox)
@@ -57,15 +58,22 @@ function appendTaskInUi(task) {
     tasks.appendChild(newTaskDiv)
 }
 
-function createCheckbox(name) {
+function createCheckbox(task) {
     const checkBoxLabel = createDivWithClass('checkbox-label')
-    const input = document.createElement('input')
-    input.type = 'checkbox'
-    input.className = 'task-checkbox'
-    const label = document.createElement('label')
-    label.innerText = name
-    checkBoxLabel.appendChild(input)
-    checkBoxLabel.appendChild(label)
+    const checkbox = document.createElement('input')
+    checkbox.type = 'checkbox'
+    checkbox.className = 'task-checkbox'
+    checkBoxLabel.appendChild(checkbox)
+    if(task.isEditMode){
+        const editInput = document.createElement('input')
+        editInput.className = 'edit-input'
+        editInput.id = task.id
+        checkBoxLabel.appendChild(editInput)
+    }else{
+        const label = document.createElement('label')
+        label.innerText =task.name
+        checkBoxLabel.appendChild(label)
+    }
     return checkBoxLabel
 }
 
@@ -92,12 +100,17 @@ function handleAddEvent() {
     })
 }
 
+
+function removeTaskWithId(taskId) {
+    const taskIndex = tasksList.findIndex(task => task.id === taskId);
+    if (taskIndex !== -1) {
+        tasksList.splice(taskIndex, 1)
+    }
+}
+
 function handleDeleteEvent() {
     handleClickTaskEvent('delete-button', function (taskId) {
-        const taskIndex = tasksList.findIndex(task => task.id === taskId)
-        if (taskIndex !== -1) {
-            tasksList.splice(taskIndex, 1)
-        }
+        removeTaskWithId(taskId);
         refreshTasks()
     })
 }
@@ -115,7 +128,18 @@ function handleClickTaskEvent(buttonClass, onReceiveId) {
     })
 }
 
+function handleEditEvent() {
+    handleClickTaskEvent('edit-button',function (taskId) {
+        const task = tasksList.find(task => task.id === taskId)
+        console.log(`clicked on ${task.id}`)
+        task.isEditMode = true
+        console.log(`edit mode: ${task.isEditMode}`)
+        refreshTasks()
+    })
+}
+
 function handleContentLoaded() {
     handleAddEvent();
     handleDeleteEvent()
+    handleEditEvent();
 }
