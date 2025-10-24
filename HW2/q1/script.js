@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded',function () {
    handleContentLoaded();
 });
 
+const tasksList = []
+
 function createDivWithClass(className) {
     const editButton = document.createElement('div')
     editButton.className = className
@@ -34,7 +36,7 @@ function createTaskElement(name) {
     return task
 }
 
-function addTask(name) {
+function appendTaskInUi(name) {
     const tasks = document.getElementById('tasks')
     const newTask = createTaskElement(name)
     tasks.appendChild(newTask)
@@ -51,16 +53,28 @@ function createCheckbox(name) {
     checkBoxLabel.appendChild(label)
     return checkBoxLabel
 }
-
-function handleContentLoaded() {
+function refreshTasks() {
+    const tasks = document.getElementById('tasks')
+    tasks.innerHTML = ''
+    tasksList.forEach( name =>
+        appendTaskInUi(name)
+    )
+}
+function handleAddEvent() {
     const addButton = document.getElementById('add-button')
-    addButton.addEventListener('click',function () {
+    addButton.addEventListener('click', function () {
         const taskInput = document.getElementById('task-input');
         const text = taskInput.value;
-        if(text){
+        if (text) {
             console.log(`input task name ${text}`);
             taskInput.value = "";
-            addTask(text)
+            tasksList.push(text)
+            refreshTasks()
         }
     })
+}
+
+
+function handleContentLoaded() {
+    handleAddEvent();
 }
