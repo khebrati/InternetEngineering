@@ -1,17 +1,20 @@
-document.addEventListener('DOMContentLoaded',function () {
-   handleContentLoaded();
+document.addEventListener('DOMContentLoaded', function () {
+    handleContentLoaded();
 });
 
-class Task{
-    constructor(id,name) {
+class Task {
+    constructor(id, name) {
         this.id = id
         this.name = name
     }
 }
+
 let lastId = 0;
+
 function generateId() {
     return lastId++
 }
+
 const tasksList = []
 
 function createDivWithClass(className) {
@@ -19,6 +22,7 @@ function createDivWithClass(className) {
     editButton.className = className
     return editButton
 }
+
 function createButtonWithClass(className) {
     const editButton = document.createElement('button')
     editButton.className = className
@@ -37,23 +41,24 @@ function createDeleteEdit() {
     return deleteEdit
 }
 
-function createTaskElement(name) {
+function createTaskElement(task) {
     const deleteEdit = createDeleteEdit();
-    const checkbox = createCheckbox(name);
-    const task = createDivWithClass('task')
-    task.appendChild(checkbox)
-    task.appendChild(deleteEdit)
-    return task
+    const checkbox = createCheckbox(task.name);
+    const taskDiv = createDivWithClass('task')
+    taskDiv.dataset.id = task.id
+    taskDiv.appendChild(checkbox)
+    taskDiv.appendChild(deleteEdit)
+    return taskDiv
 }
 
-function appendTaskInUi(name) {
+function appendTaskInUi(task) {
     const tasks = document.getElementById('tasks')
-    const newTask = createTaskElement(name)
-    tasks.appendChild(newTask)
+    const newTaskDiv = createTaskElement(task)
+    tasks.appendChild(newTaskDiv)
 }
 
 function createCheckbox(name) {
-    const checkBoxLabel =createDivWithClass('checkbox-label')
+    const checkBoxLabel = createDivWithClass('checkbox-label')
     const input = document.createElement('input')
     input.type = 'checkbox'
     input.className = 'task-checkbox'
@@ -63,13 +68,15 @@ function createCheckbox(name) {
     checkBoxLabel.appendChild(label)
     return checkBoxLabel
 }
+
 function refreshTasks() {
     const tasks = document.getElementById('tasks')
     tasks.innerHTML = ''
-    tasksList.forEach( task =>
-        appendTaskInUi(task.name)
+    tasksList.forEach(task =>
+        appendTaskInUi(task)
     )
 }
+
 function handleAddEvent() {
     const addButton = document.getElementById('add-button')
     addButton.addEventListener('click', function () {
@@ -78,8 +85,24 @@ function handleAddEvent() {
         if (text) {
             console.log(`input task name ${text}`);
             taskInput.value = "";
-            const task = new Task(generateId(),text)
+            const task = new Task(generateId(), text)
             tasksList.push(task)
+            refreshTasks()
+        }
+    })
+}
+
+function handleDeleteEvent() {
+    const taskContainerDiv = document.getElementById('container')
+    taskContainerDiv.addEventListener('click',function (event) {
+        if(event.target.classList.contains('delete-button')){
+            const deleteButton = event.target
+            const taskDiv = deleteButton.closest('.task')
+            const taskId = parseInt(taskDiv.dataset.id)
+            const taskIndex = tasksList.findIndex(task => task.id === taskId)
+            if(taskIndex !== -1){
+                tasksList.splice(taskIndex,1)
+            }
             refreshTasks()
         }
     })
@@ -88,4 +111,5 @@ function handleAddEvent() {
 
 function handleContentLoaded() {
     handleAddEvent();
+    handleDeleteEvent()
 }
