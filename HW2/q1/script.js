@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 class Task {
-    constructor(id, name,isEditMode = false) {
+    constructor(id, name, isEditMode = false) {
         this.id = id
         this.name = name
         this.isEditMode = isEditMode
@@ -31,19 +31,28 @@ function createButtonWithClass(className) {
 }
 
 
-function createDeleteEdit() {
-    const editButton = createButtonWithClass('edit-button');
-    editButton.textContent = 'Edit'
+function createDeleteEdit(isEditMode) {
+    let buttonClass;
+    let buttonText;
+    if (isEditMode) {
+        buttonText = 'Save'
+        buttonClass = 'save-button'
+    } else {
+        buttonText = 'Edit'
+        buttonClass = 'edit-button'
+    }
+    const editSaveButton = createButtonWithClass(buttonClass);
+    editSaveButton.textContent = buttonText
     const deleteButton = createButtonWithClass('delete-button');
     const deleteEdit = createDivWithClass('delete-edit')
     deleteButton.textContent = 'Delete'
-    deleteEdit.appendChild(editButton)
+    deleteEdit.appendChild(editSaveButton)
     deleteEdit.appendChild(deleteButton)
     return deleteEdit
 }
 
 function createTaskElement(task) {
-    const deleteEdit = createDeleteEdit();
+    const deleteEdit = createDeleteEdit(task.isEditMode);
     const checkbox = createCheckbox(task);
     const taskDiv = createDivWithClass('task')
     taskDiv.dataset.id = task.id
@@ -64,15 +73,15 @@ function createCheckbox(task) {
     checkbox.type = 'checkbox'
     checkbox.className = 'task-checkbox'
     checkBoxLabel.appendChild(checkbox)
-    if(task.isEditMode){
+    if (task.isEditMode) {
         const editInput = document.createElement('input')
         editInput.className = 'edit-input'
         editInput.id = task.id
         checkBoxLabel.appendChild(editInput)
-    }else{
-        const label = document.createElement('label')
-        label.innerText =task.name
-        checkBoxLabel.appendChild(label)
+    } else {
+        const labelElement = document.createElement('label')
+        labelElement.innerText = task.name
+        checkBoxLabel.appendChild(labelElement)
     }
     return checkBoxLabel
 }
@@ -120,8 +129,8 @@ function handleClickTaskEvent(buttonClass, onReceiveId) {
     const taskContainerDiv = document.getElementById('container')
     taskContainerDiv.addEventListener('click', function (event) {
         if (event.target.classList.contains(buttonClass)) {
-            const deleteButton = event.target
-            const taskDiv = deleteButton.closest('.task')
+            const button = event.target
+            const taskDiv = button.closest('.task')
             const taskId = parseInt(taskDiv.dataset.id)
             onReceiveId(taskId)
         }
@@ -131,10 +140,24 @@ function handleClickTaskEvent(buttonClass, onReceiveId) {
 function handleEditEvent() {
     handleClickTaskEvent('edit-button',function (taskId) {
         const task = tasksList.find(task => task.id === taskId)
-        console.log(`clicked on ${task.id}`)
         task.isEditMode = true
-        console.log(`edit mode: ${task.isEditMode}`)
         refreshTasks()
+    })
+}
+
+function handleEditSaved() {
+    const taskContainerDiv = document.getElementById('container')
+    taskContainerDiv.addEventListener('click', function (event) {
+        if (event.target.classList.contains('save-button')) {
+            const button = event.target
+            const taskDiv = button.closest('.task')
+            const taskId = parseInt(taskDiv.dataset.id)
+            const task = tasksList.find(task => task.id === taskId)
+            task.isEditMode = false
+            const editInputField = taskDiv.querySelector('.edit-input')
+            task.name = editInputField.value
+            refreshTasks()
+        }
     })
 }
 
@@ -142,4 +165,5 @@ function handleContentLoaded() {
     handleAddEvent();
     handleDeleteEvent()
     handleEditEvent();
+    handleEditSaved()
 }
