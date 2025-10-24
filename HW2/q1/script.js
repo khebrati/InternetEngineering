@@ -93,21 +93,27 @@ function handleAddEvent() {
 }
 
 function handleDeleteEvent() {
-    const taskContainerDiv = document.getElementById('container')
-    taskContainerDiv.addEventListener('click',function (event) {
-        if(event.target.classList.contains('delete-button')){
-            const deleteButton = event.target
-            const taskDiv = deleteButton.closest('.task')
-            const taskId = parseInt(taskDiv.dataset.id)
-            const taskIndex = tasksList.findIndex(task => task.id === taskId)
-            if(taskIndex !== -1){
-                tasksList.splice(taskIndex,1)
-            }
-            refreshTasks()
+    handleClickTaskEvent('delete-button', function (taskId) {
+        const taskIndex = tasksList.findIndex(task => task.id === taskId)
+        if (taskIndex !== -1) {
+            tasksList.splice(taskIndex, 1)
         }
+        refreshTasks()
     })
 }
 
+
+function handleClickTaskEvent(buttonClass, onReceiveId) {
+    const taskContainerDiv = document.getElementById('container')
+    taskContainerDiv.addEventListener('click', function (event) {
+        if (event.target.classList.contains(buttonClass)) {
+            const deleteButton = event.target
+            const taskDiv = deleteButton.closest('.task')
+            const taskId = parseInt(taskDiv.dataset.id)
+            onReceiveId(taskId)
+        }
+    })
+}
 
 function handleContentLoaded() {
     handleAddEvent();
