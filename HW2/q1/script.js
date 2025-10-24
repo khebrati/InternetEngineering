@@ -2,6 +2,16 @@ document.addEventListener('DOMContentLoaded',function () {
    handleContentLoaded();
 });
 
+class Task{
+    constructor(id,name) {
+        this.id = id
+        this.name = name
+    }
+}
+let lastId = 0;
+function generateId() {
+    return lastId++
+}
 const tasksList = []
 
 function createDivWithClass(className) {
@@ -56,8 +66,8 @@ function createCheckbox(name) {
 function refreshTasks() {
     const tasks = document.getElementById('tasks')
     tasks.innerHTML = ''
-    tasksList.forEach( name =>
-        appendTaskInUi(name)
+    tasksList.forEach( task =>
+        appendTaskInUi(task.name)
     )
 }
 function handleAddEvent() {
@@ -68,7 +78,8 @@ function handleAddEvent() {
         if (text) {
             console.log(`input task name ${text}`);
             taskInput.value = "";
-            tasksList.push(text)
+            const task = new Task(generateId(),text)
+            tasksList.push(task)
             refreshTasks()
         }
     })
