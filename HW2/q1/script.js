@@ -3,10 +3,11 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 class Task {
-    constructor(id, name, isEditMode = false) {
+    constructor(id, name, isEditMode = false,isDone = false) {
         this.id = id
         this.name = name
         this.isEditMode = isEditMode
+        this.isDone = isDone
     }
 }
 
@@ -44,8 +45,8 @@ function createDeleteEdit(isEditMode) {
     const editSaveButton = createButtonWithClass(buttonClass);
     editSaveButton.textContent = buttonText
     const deleteButton = createButtonWithClass('delete-button');
-    const deleteEdit = createDivWithClass('delete-edit')
     deleteButton.textContent = 'Delete'
+    const deleteEdit = createDivWithClass('delete-edit')
     deleteEdit.appendChild(editSaveButton)
     deleteEdit.appendChild(deleteButton)
     return deleteEdit
@@ -69,24 +70,30 @@ function appendTaskInUi(task) {
 
 function createCheckbox(task) {
     const checkBoxLabel = createDivWithClass('checkbox-label')
-    const checkbox = document.createElement('input')
-    checkbox.type = 'checkbox'
-    checkbox.className = 'task-checkbox'
-    checkBoxLabel.appendChild(checkbox)
     if (task.isEditMode) {
         const editInput = document.createElement('input')
         editInput.className = 'edit-input'
         editInput.id = task.id
         checkBoxLabel.appendChild(editInput)
     } else {
+        const checkbox = document.createElement('input')
+        checkbox.type = 'checkbox'
+        checkbox.className = 'task-checkbox'
+        checkBoxLabel.appendChild(checkbox)
+        checkbox.checked = task.isDone
         const labelElement = document.createElement('label')
         labelElement.innerText = task.name
+        if(task.isDone){
+            labelElement.classList.add('done')
+        }else{
+            labelElement.classList.remove('done')
+        }
         checkBoxLabel.appendChild(labelElement)
     }
     return checkBoxLabel
 }
 
-function refreshTasks() {
+function updateUI() {
     const tasks = document.getElementById('tasks')
     tasks.innerHTML = ''
     tasksList.forEach(task =>
@@ -104,7 +111,7 @@ function handleAddEvent() {
             taskInput.value = "";
             const task = new Task(generateId(), text)
             tasksList.push(task)
-            refreshTasks()
+            updateUI()
         }
     })
 }
@@ -120,7 +127,7 @@ function removeTaskWithId(taskId) {
 function handleDeleteEvent() {
     handleClickTaskEvent('delete-button', function (taskId) {
         removeTaskWithId(taskId);
-        refreshTasks()
+        updateUI()
     })
 }
 
@@ -141,7 +148,7 @@ function handleEditEvent() {
     handleClickTaskEvent('edit-button',function (taskId) {
         const task = tasksList.find(task => task.id === taskId)
         task.isEditMode = true
-        refreshTasks()
+        updateUI()
     })
 }
 
@@ -156,8 +163,16 @@ function handleEditSaved() {
             task.isEditMode = false
             const editInputField = taskDiv.querySelector('.edit-input')
             task.name = editInputField.value
-            refreshTasks()
+            updateUI()
         }
+    })
+}
+
+function handleDoneEvent() {
+    handleClickTaskEvent('task-checkbox',function (taskId) {
+        const task = tasksList.find(task => task.id === taskId)
+        task.isDone = !task.isDone
+        updateUI()
     })
 }
 
@@ -166,4 +181,5 @@ function handleContentLoaded() {
     handleDeleteEvent()
     handleEditEvent();
     handleEditSaved()
+    handleDoneEvent();
 }

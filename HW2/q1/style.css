@@ -29,6 +29,9 @@ div{
     color: #1B1B21;
     background-color: #FBF8FF;
 }
+.done{
+    text-decoration: line-through;
+}
 #enter-task,#tasks,.task{
     width: 100%;
 }
