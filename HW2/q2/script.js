@@ -1,6 +1,6 @@
 const questions = [
     {
-        questions: "What is the capital of france?",
+        question: "What is the capital of france?",
         options: ["Paris", "London", "Berlin", "Madrid"],
         answer: "Paris"
     },
@@ -25,9 +25,9 @@ const questions = [
         answer: "Shakespeare"
     }
 ];
-const areAnswersCorrect = [false, false, false, false, false]
+let areAnswersCorrect = [false, false, false, false, false]
 let currentQuestionIndex = 0;
-let currentSelectedOption = "Paris"
+let currentSelectedOption = ""
 
 function getCurrentQuestion() {
     return questions[currentQuestionIndex]
@@ -48,9 +48,7 @@ function handleRadioClick() {
     const optionsDiv = document.getElementById("options")
     optionsDiv.addEventListener("click", function (event) {
         const label = event.target.closest("label").textContent
-        if(label){
-            currentSelectedOption = label
-        }
+        currentSelectedOption = label.trim()
     })
 }
 
@@ -75,22 +73,36 @@ function updateOptions() {
 function updateQuestion() {
     const question = document.getElementById("question")
     question.textContent = getCurrentQuestion().question
+    console.log("something")
 }
 
 function goNextQuestion() {
+    currentSelectedOption = ""
     updateQuestion();
     updateOptions();
 }
 
 
 function recordScore() {
-    if(currentSelectedOption === getCurrentQuestion().answer){
+    if(currentSelectedOption.trim() === getCurrentQuestion().answer){
         areAnswersCorrect[currentQuestionIndex] = true
     }
 }
 
-function handleDone() {
+function showScore() {
+    const question = document.getElementById("question")
+    question.textContent = `You scored ${getScore()}`
+}
 
+function changeButtonText(text) {
+    const nextButton = document.getElementById("next-done-button")
+    nextButton.textContent = text
+}
+
+function handleDone() {
+    showScore()
+    changeButtonText("Restart")
+    isDone = true
 }
 
 function nextOrDone() {
@@ -106,12 +118,21 @@ function nextOrDone() {
 function handleNextClick() {
     const nextButton = document.getElementById("next-done-button")
     nextButton.addEventListener("click", function (event) {
-        console.log("received next click")
-        if(!currentSelectedOption){
-            alert("You must choose an answer!")
-        }else{
-            recordScore()
-            nextOrDone()
+        if(isDone){
+            isDone = false;
+            areAnswersCorrect = [false, false, false, false, false];
+            currentQuestionIndex = 0;
+            currentSelectedOption = "";
+            goNextQuestion();
+            changeButtonText("Next")
+        }
+        else{
+            if(!currentSelectedOption){
+                alert("You must choose an answer!")
+            }else{
+                recordScore()
+                nextOrDone()
+            }
         }
     })
 }
