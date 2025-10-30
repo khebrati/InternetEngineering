@@ -64,11 +64,11 @@ function setElement(row, col, content) {
 function putOnEmptyColumn(col, content) {
     const index = elements.findLastIndex(el => el.col === Number(col) && el.content.length === 0)
     if (index === -1) {
-        alert("Item already full!")
+        return false;
     } else {
         const element = elements[index]
         element.content = content
-        drawTicTac()
+        return true;
     }
 }
 
@@ -81,16 +81,75 @@ function drawTicTac() {
     )
 }
 
+
+function win(winner) {
+    alert(`${winner} won the game!`)
+}
+
+function readyAtRelativePosition(element, position, env) {
+    position = Number(position);
+    const columnPosition = env ? -position : position
+    return elements.findIndex(el => el.row === element.row + position && el.col === element.col + columnPosition && el.content === "O") !== -1;
+}
+
+function isCrossWin(element) {
+    const doubleUpperLeftReady = readyAtRelativePosition(element, -2, false)
+    const upperLeftReady = readyAtRelativePosition(element, -1, false)
+    const lowerRightReady = readyAtRelativePosition(element, +1, false)
+    const doubleLowerRightReady = readyAtRelativePosition(element, +2, false)
+    const doubleUpperRightReady = readyAtRelativePosition(element, -2, true)
+    const upperRightReady = readyAtRelativePosition(element, -1, true)
+    const lowerLeftReady = readyAtRelativePosition(element, +1, true)
+    const doubleLowerLeftReady = readyAtRelativePosition(element, +2, true)
+    return (doubleUpperLeftReady && upperLeftReady || upperLeftReady && lowerRightReady || lowerRightReady && doubleLowerRightReady || doubleUpperRightReady && upperRightReady || upperRightReady && lowerLeftReady || lowerLeftReady && doubleLowerLeftReady)
+}
+
+function winIfCan() {
+    for (const element of elements) {
+        if (element.content.length !== 0) {
+            continue;
+        }
+        const colElementsReadyForWin = elements.filter(el => el.col === element.col && el.content === "O").length === 2;
+        const rowElementsReadyForWin = elements.filter(el => el.row === element.row && el.content === "O").length === 2;
+        const isCrossReady = isCrossWin(element);
+        if (colElementsReadyForWin || rowElementsReadyForWin || isCrossReady) {
+            setElement(element.row, element.col, "O")
+            win("Computer")
+            return true;
+        }
+    }
+    return false;
+}
+
+function botRandomMove() {
+    for(const element of elements){
+        const result = putOnEmptyColumn(element.col,"O")
+        if(result){
+            break;
+        }
+    }
+}
+
+function botMove() {
+    if(winIfCan()) return;
+    botRandomMove();
+}
+
 function listenClick() {
     const ticTac = document.getElementById("TicTac")
     ticTac.addEventListener("click", function (event) {
         const target = event.target
-        const row = target.dataset.row
         const col = target.dataset.col
-        putOnEmptyColumn(
+        const result = putOnEmptyColumn(
             col,
             "X"
         )
+        if(result){
+            botMove();
+            drawTicTac();
+        }else{
+            alert("Column already full!")
+        }
     })
 }
 
