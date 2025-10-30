@@ -60,7 +60,7 @@ function setElement(row, col, content) {
         drawTicTac()
     }
 }
-let lastSetIndex = 0;
+let lastSetIndex = null;
 function putOnEmptyColumn(col, content) {
     const index = elements.findLastIndex(el => el.col === Number(col) && el.content.length === 0)
     if (index === -1) {
@@ -152,9 +152,18 @@ function isWon(letter) {
     }
     return false;
 }
-
+function allFilled() {
+    let allFilled = true;
+    for(const element of elements){
+        if(element.content.length ===0){
+            allFilled = false
+        }
+    }
+    return allFilled
+}
 function botRandomMove() {
     while (true) {
+        if(allFilled()) break;
         const randomCol = Math.floor(Math.random() * 3)
         const result = putOnEmptyColumn(randomCol, "O")
         if (result) {
@@ -184,9 +193,24 @@ function botMove() {
     botRandomMove();
 }
 
+function reset(){
+    for(const element of elements){
+        element.content = ""
+    }
+    lastSetIndex = null;
+    gameDone = false;
+    drawTicTac();
+}
+
+let gameDone=false;
 function listenClick() {
     const ticTac = document.getElementById("TicTac")
     ticTac.addEventListener("click", function (event) {
+        if(gameDone){
+            gameDone = false;
+            reset();
+            return;
+        }
         const target = event.target
         const col = target.dataset.col
         const result = putOnEmptyColumn(
@@ -197,16 +221,34 @@ function listenClick() {
             alert("Column already full!")
             return;
         }
-        botMove();
-        if (isWon("X")) {
-            showWinMessage("You")
-        } else if (isWon("O")) {
-            showWinMessage("Computer")
-        }
         drawTicTac();
+        if(isWon("X")){
+            showWinMessage("You");
+            gameDone = true;
+            return;
+        }
+        botMove();
+        drawTicTac();
+        if(isWon("O")){
+            showWinMessage("Computer");
+            gameDone = true;
+            return;
+        }
+        if(allFilled()){
+            alert("Draw!");
+            gameDone = true
+        }
+    })
+}
+
+function listenButtonClick() {
+    const resetButton = document.getElementById("restart-button");
+    resetButton.addEventListener("click",function () {
+        reset();
     })
 }
 
 document.addEventListener("DOMContentLoaded", function () {
     listenClick();
+    listenButtonClick();
 })
