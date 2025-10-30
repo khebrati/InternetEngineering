@@ -50,24 +50,13 @@ function getElement(row, col) {
     return elements.find(el => el.row === row && el.col === col).content
 }
 
-function setElement(row, col, content) {
-    const index = elements.findIndex(el => el.row === Number(row) && el.col === Number(col))
-    const element = elements[index]
-    if (element.content) {
-        alert("Item already full!")
-    } else {
-        element.content = content
-        drawTicTac()
-    }
-}
 let lastSetIndex = null;
 function putOnEmptyColumn(col, content) {
     const index = elements.findLastIndex(el => el.col === Number(col) && el.content.length === 0)
     if (index === -1) {
         return false;
     } else {
-        const element = elements[index]
-        element.content = content
+        elements[index].content = content;
         lastSetIndex = index;
         return true;
     }
@@ -87,39 +76,6 @@ function showWinMessage(winner) {
     alert(`${winner} won the game!`)
 }
 
-function readyAtRelativePosition(letter, element, position, env) {
-    position = Number(position);
-    const columnPosition = env ? -position : position
-    return elements.findIndex(el => el.row === element.row + position && el.col === element.col + columnPosition && el.content === letter) !== -1;
-}
-
-function isCrossReadyForWin(letter, element) {
-    const doubleUpperLeftReady = readyAtRelativePosition(letter, element, -2, false)
-    const upperLeftReady = readyAtRelativePosition(letter, element, -1, false)
-    const lowerRightReady = readyAtRelativePosition(letter, element, +1, false)
-    const doubleLowerRightReady = readyAtRelativePosition(letter, element, +2, false)
-    const doubleUpperRightReady = readyAtRelativePosition(letter, element, -2, true)
-    const upperRightReady = readyAtRelativePosition(letter, element, -1, true)
-    const lowerLeftReady = readyAtRelativePosition(letter, element, +1, true)
-    const doubleLowerLeftReady = readyAtRelativePosition(letter, element, +2, true)
-    return (doubleUpperLeftReady && upperLeftReady || upperLeftReady && lowerRightReady || lowerRightReady && doubleLowerRightReady || doubleUpperRightReady && upperRightReady || upperRightReady && lowerLeftReady || lowerLeftReady && doubleLowerLeftReady)
-}
-
-// function winIfCan() {
-//     for (const element of elements) {
-//         if (element.content.length !== 0) {
-//             continue;
-//         }
-//         const colElementsReadyForWin = elements.filter(el => el.col === element.col && el.content === "O").length === 2;
-//         const rowElementsReadyForWin = elements.filter(el => el.row === element.row && el.content === "O").length === 2;
-//         const isCrossReady = isCrossReadyForWin("O", element);
-//         if (colElementsReadyForWin || rowElementsReadyForWin || isCrossReady) {
-//             setElement(element.row, element.col, "O")
-//             return true;
-//         }
-//     }
-//     return false;
-// }
 
 function isWon(letter) {
     for (let row = 0; row < 3; row++) {
@@ -176,7 +132,7 @@ function undoLast(){
 }
 function winIfCan(){
     for(let col = 0;col < 3;col++){
-        const result = putOnEmptyColumn(col);
+        const result = putOnEmptyColumn(col,"O");
         if(!result){
             continue;
         }
@@ -188,9 +144,33 @@ function winIfCan(){
     }
     return false;
 }
+function blockIfWins(){
+    for(let col = 0;col < 3;col++){
+        const result = putOnEmptyColumn(col,"X");
+        if(!result){
+            continue;
+        }
+        if(isWon("X")){
+            elements[lastSetIndex].content = "O";
+            return true;
+        }
+        undoLast();
+    }
+    return false;
+}
+
+
 function botMove() {
-    if (winIfCan()) return;
+    if (winIfCan()){
+        console.log("Chance to win!")
+        return;
+    }
+    if(blockIfWins()){
+        console.log("Blocked!")
+        return;
+    }
     botRandomMove();
+    console.log("Random!")
 }
 
 function reset(){
