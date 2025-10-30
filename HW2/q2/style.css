@@ -1,26 +1,26 @@
-#background{
+#container{
     width: 100vw;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-#container{
-    display: flex;
     flex-direction: column;
-    width: 400px;
-    height: auto;
-    align-items: center;
 }
-#options{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+#TicTac{
+    display: Grid;
+    grid-template-columns: 70px 70px 70px;
+    grid-template-rows: 70px 70px 70px;
+    gap: 5px;
 }
-.option{
-    margin: 7px 0;
+.element{
+    border: 2px solid black;
+    text-align: center;
+    padding: 20px;
 }
-#next-done-button{
-    width: 80px;
+#restart-button{
+    width: 70px;
     height: 30px;
+    margin: 15px;
+    background-color: #a7cae3;
+    border-radius: 10px;
 }
