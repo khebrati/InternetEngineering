@@ -82,25 +82,25 @@ function drawTicTac() {
 }
 
 
-function win(winner) {
+function showWinMessage(winner) {
     alert(`${winner} won the game!`)
 }
 
-function readyAtRelativePosition(element, position, env) {
+function readyAtRelativePosition(letter,element, position, env) {
     position = Number(position);
     const columnPosition = env ? -position : position
-    return elements.findIndex(el => el.row === element.row + position && el.col === element.col + columnPosition && el.content === "O") !== -1;
+    return elements.findIndex(el => el.row === element.row + position && el.col === element.col + columnPosition && el.content === letter) !== -1;
 }
 
-function isCrossWin(element) {
-    const doubleUpperLeftReady = readyAtRelativePosition(element, -2, false)
-    const upperLeftReady = readyAtRelativePosition(element, -1, false)
-    const lowerRightReady = readyAtRelativePosition(element, +1, false)
-    const doubleLowerRightReady = readyAtRelativePosition(element, +2, false)
-    const doubleUpperRightReady = readyAtRelativePosition(element, -2, true)
-    const upperRightReady = readyAtRelativePosition(element, -1, true)
-    const lowerLeftReady = readyAtRelativePosition(element, +1, true)
-    const doubleLowerLeftReady = readyAtRelativePosition(element, +2, true)
+function isCrossReadyForWin(letter, element) {
+    const doubleUpperLeftReady = readyAtRelativePosition(letter,element, -2, false)
+    const upperLeftReady = readyAtRelativePosition(letter,element, -1, false)
+    const lowerRightReady = readyAtRelativePosition(letter,element, +1, false)
+    const doubleLowerRightReady = readyAtRelativePosition(letter,element, +2, false)
+    const doubleUpperRightReady = readyAtRelativePosition(letter,element, -2, true)
+    const upperRightReady = readyAtRelativePosition(letter,element, -1, true)
+    const lowerLeftReady = readyAtRelativePosition(letter,element, +1, true)
+    const doubleLowerLeftReady = readyAtRelativePosition(letter,element, +2, true)
     return (doubleUpperLeftReady && upperLeftReady || upperLeftReady && lowerRightReady || lowerRightReady && doubleLowerRightReady || doubleUpperRightReady && upperRightReady || upperRightReady && lowerLeftReady || lowerLeftReady && doubleLowerLeftReady)
 }
 
@@ -111,19 +111,50 @@ function winIfCan() {
         }
         const colElementsReadyForWin = elements.filter(el => el.col === element.col && el.content === "O").length === 2;
         const rowElementsReadyForWin = elements.filter(el => el.row === element.row && el.content === "O").length === 2;
-        const isCrossReady = isCrossWin(element);
+        const isCrossReady = isCrossReadyForWin("O",element);
         if (colElementsReadyForWin || rowElementsReadyForWin || isCrossReady) {
             setElement(element.row, element.col, "O")
-            win("Computer")
             return true;
         }
     }
     return false;
 }
 
+function isWon(letter){
+    for(let row = 0;row<3;row++){
+        let allMatch = true
+        elements.filter(el => el.row === row).forEach(function (el) {
+            if(el.content !== letter){
+                allMatch = false
+            }
+        })
+        if(allMatch){
+            return true
+        }
+    }
+    for(let col = 0;col<3;col++){
+        let allMatch = true
+        elements.filter(el => el.col === col).forEach(function (el) {
+            if(el.content !== letter){
+                allMatch = false
+            }
+        })
+        if(allMatch){
+            return true
+        }
+    }
+    if(getElement(0,0) === letter && getElement(1,1) === letter && getElement(2,2) === letter){
+        return true;
+    }
+    if(getElement(2,0) === letter && getElement(1,1) === letter && getElement(0,2) === letter){
+        return true;
+    }
+    return false;
+}
 function botRandomMove() {
-    for(const element of elements){
-        const result = putOnEmptyColumn(element.col,"O")
+    while (true){
+        const randomCol = Math.floor(Math.random() * 3)
+        const result = putOnEmptyColumn(randomCol,"O")
         if(result){
             break;
         }
@@ -146,6 +177,11 @@ function listenClick() {
         )
         if(result){
             botMove();
+            if(isWon("X")){
+                showWinMessage("You")
+            }else if(isWon("O")){
+                showWinMessage("Computer")
+            }
             drawTicTac();
         }else{
             alert("Column already full!")
