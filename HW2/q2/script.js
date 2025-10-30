@@ -52,8 +52,24 @@ function getElement(row, col) {
 
 function setElement(row, col, content) {
     const index = elements.findIndex(el => el.row === Number(row) && el.col === Number(col))
-    elements[index].content = content
-    drawTicTac()
+    const element = elements[index]
+    if (element.content) {
+        alert("Item already full!")
+    } else {
+        element.content = content
+        drawTicTac()
+    }
+}
+
+function putOnEmptyColumn(col, content) {
+    const index = elements.findLastIndex(el => el.col === Number(col) && el.content.length === 0)
+    if (index === -1) {
+        alert("Item already full!")
+    } else {
+        const element = elements[index]
+        element.content = content
+        drawTicTac()
+    }
 }
 
 function drawTicTac() {
@@ -67,12 +83,11 @@ function drawTicTac() {
 
 function listenClick() {
     const ticTac = document.getElementById("TicTac")
-    ticTac.addEventListener("click",function (event) {
+    ticTac.addEventListener("click", function (event) {
         const target = event.target
         const row = target.dataset.row
         const col = target.dataset.col
-        setElement(
-            row,
+        putOnEmptyColumn(
             col,
             "X"
         )
