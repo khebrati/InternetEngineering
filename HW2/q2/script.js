@@ -51,8 +51,9 @@ function getElement(row, col) {
 }
 
 function setElement(row, col, content) {
-    const index = elements.findIndex(el => el.row === row && el.col === col)
+    const index = elements.findIndex(el => el.row === Number(row) && el.col === Number(col))
     elements[index].content = content
+    drawTicTac()
 }
 
 function drawTicTac() {
@@ -63,6 +64,22 @@ function drawTicTac() {
         }
     )
 }
+
+function listenClick() {
+    const ticTac = document.getElementById("TicTac")
+    ticTac.addEventListener("click",function (event) {
+        const target = event.target
+        const row = target.dataset.row
+        const col = target.dataset.col
+        setElement(
+            row,
+            col,
+            "X"
+        )
+    })
+}
+
 document.addEventListener("DOMContentLoaded", function () {
-    drawTicTac()
+    // drawTicTac()
+    listenClick();
 })
