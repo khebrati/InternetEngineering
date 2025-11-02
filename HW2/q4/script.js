@@ -108,11 +108,14 @@ function shuffle(array) {
     }
     return array;
 }
+function getCard(id){
+    return cards.find(card => card.Id === id) 
+}
 function show(cardId) {
-    cards.find(card => card.Id === cardId).show = true
+    getCard(cardId).show = true
 }
 function hide(cardId) {
-    cards.find(card => card.Id === cardId).show = false
+    getCard(cardId).show = false
 }
 
 function updateUI() {
@@ -131,11 +134,31 @@ function updateUI() {
         cardUi.textContent = card.Content
     }
 }
+let firstClickedId = null;
 function listenForCardClick() {
     const board = document.getElementById("board");
     board.addEventListener("click", function (event) {
-        const clickedId = event.target.dataset.id;
+        const clickedId = Number(event.target.dataset.id);
         show(Number(clickedId));
+        if(firstClickedId === null){
+            firstClickedId = clickedId;
+            updateUI();
+            return;
+        }
+        const firstClickedCard = getCard(firstClickedId);
+        const secondClickedCard = getCard(clickedId);
+        if(firstClickedCard.Content === secondClickedCard.Content){
+            console.log("Correct!");
+            //todo add to scores
+            firstClickedId = null;
+            updateUI();
+            return;
+        }
+        //todo lock the game for 2 sec
+        firstClickedCard.show = false;
+        secondClickedCard.show = false;
+        console.log("Wrong!");
+        firstClickedId = null;
         updateUI();
     });
 }
