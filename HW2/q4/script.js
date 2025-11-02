@@ -2,73 +2,73 @@ const cards = [
     {
         Id: 0,
         Content: 0,
-        show: true 
+        show: false 
     },
     {
         Id: 1,
         Content: 1,
-        show: true 
+        show: false 
     },
     {
         Id: 2,
         Content: 2,
-        show: true 
+        show: false 
     },
     {
         Id: 3,
         Content: 3,
-        show: true 
+        show: false 
     },
     {
         Id: 4,
         Content: 0,
-        show: true 
+        show: false 
     },
     {
         Id: 5,
         Content: 0,
-        show: true 
+        show: false 
     },
     {
         Id: 6,
         Content: 0,
-        show: true 
+        show: false 
     },
     {
         Id: 7,
         Content: 0,
-        show: true 
+        show: false 
     },
     {
         Id: 8,
         Content: 0,
-        show: true 
+        show: false 
     },
     {
         Id: 9,
         Content: 0,
-        show: true 
+        show: false 
     },
 
     {
         Id: 10,
         Content: 0,
-        show: true 
+        show: false 
     },
     {
         Id: 11,
         Content: 0,
-        show: true 
+        show: false 
     },
     {
         Id: 12,
         Content: 0,
-        show: true 
+        show: false 
     },
     {
         Id: 13,
         Content: 0,
-        show: true 
+        show: false 
     },
     {
         Id: 14,
@@ -81,6 +81,14 @@ const cards = [
         show: false
     },
 ]
+
+function show(cardId){
+    cards.find(card => card.Id === cardId).show =true
+}
+function hide(cardId){
+    cards.find(card => card.Id === cardId).show = false
+}
+
 function updateUI(){
     const board = document.getElementById("board")
     // for(const card of cards){
@@ -92,11 +100,20 @@ function updateUI(){
         const card = cards.find(card => card.Id === cardId)
         if(!card.show){
             cardUi.textContent = "";
-            return;
+            continue;
         }
         cardUi.textContent = card.Content
     }
 }
+function listenForCardClick(){
+    const board = document.getElementById("board");
+    board.addEventListener("click",function(event){
+        const clickedId = event.target.dataset.id;
+        show(Number(clickedId));
+        updateUI();
+    });
+}
 document.addEventListener("DOMContentLoaded",function(event){
-    updateUI()
+    // updateUI()
+    listenForCardClick();
 });
