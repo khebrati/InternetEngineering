@@ -81,14 +81,23 @@ const cards = [
         show: false
     },
 ]
+let showStreakInfo = false;
 
-function restart(){
+function restart() {
     hideAll();
     randomize();
+    isLock = false;
+    move = 0;
+    score = 0;
+    streak = 0;
+    streakScore = 0;
+    isWon = false;
+    firstClickedId = null;
+    showStreakInfo = false;
 }
 
-function hideAll(){
-    for(let card of cards){
+function hideAll() {
+    for (let card of cards) {
         card.show = false;
     }
 }
@@ -96,7 +105,7 @@ function hideAll(){
 function randomize() {
     const letters = ["A", "B", "C", "D", "E", "F", "G", "H", "A", "B", "C", "D", "E", "F", "G", "H"];
     const shuffled = shuffle(letters);
-    for(let i in cards){
+    for (let i in cards) {
         cards[i].Content = shuffled[i];
     }
 }
@@ -108,8 +117,8 @@ function shuffle(array) {
     }
     return array;
 }
-function getCard(id){
-    return cards.find(card => card.Id === id) 
+function getCard(id) {
+    return cards.find(card => card.Id === id)
 }
 function show(cardId) {
     getCard(cardId).show = true
@@ -120,9 +129,6 @@ function hide(cardId) {
 
 function updateUI() {
     const board = document.getElementById("board")
-    // for(const card of cards){
-    //     board.querySelector("[]")
-    // }
     const cardsUi = board.querySelectorAll(".card")
     for (let cardUi of cardsUi) {
         const cardId = Number(cardUi.dataset.id)
@@ -133,39 +139,111 @@ function updateUI() {
         }
         cardUi.textContent = card.Content
     }
+    const scoreElement = document.getElementById("score");
+    scoreElement.textContent = score;
+    const moveElement = document.getElementById("move");
+    moveElement.textContent = move;
+    const streakElement = document.getElementById("streak");
+    streakElement.textContent = streak;
+    const streakScoreEl = document.getElementById("streakScore");
+    streakScoreEl.textContent = streakScore;
+    const showStrickInfoPara = document.getElementById("streakInfo");
+    if (showStreakInfo) {
+        showStrickInfoPara.style.display = "inline";
+    } else {
+        showStrickInfoPara.style.display = "none";
+    }
+    const isWonEl = document.getElementById("won");
+    if(isWon){
+        isWonEl.style.display = "inline"
+    }else{
+        isWonEl.style.display = "none"
+    }
+}
+let isWon = false;
+let isLock = false;
+let move = 0;
+let score = 0;
+let streak = 0;
+let streakScore = 0;
+function addScore() {
+    streak++;
+    streakScore = streak * 100;
+    score = score + streakScore;
 }
 let firstClickedId = null;
 function listenForCardClick() {
     const board = document.getElementById("board");
     board.addEventListener("click", function (event) {
-        const clickedId = Number(event.target.dataset.id);
+        if(isWon){
+            restart();
+            return;
+        }
+        if (isLock) {
+            return;
+        }
+        let clickedId = event.target.dataset.id;
+        if (clickedId === undefined) {
+            return;
+        }
+        clickedId = Number(clickedId);
+        move++;
         show(Number(clickedId));
-        if(firstClickedId === null){
+        if (firstClickedId === null) {
             firstClickedId = clickedId;
             updateUI();
             return;
         }
+        if (firstClickedId === clickedId) {
+            alert("Choose another card!");
+            return;
+        }
+        isLock = true;
         const firstClickedCard = getCard(firstClickedId);
         const secondClickedCard = getCard(clickedId);
-        if(firstClickedCard.Content === secondClickedCard.Content){
+        if (firstClickedCard.Content === secondClickedCard.Content) {
             console.log("Correct!");
-            //todo add to scores
+            addScore();
             firstClickedId = null;
+            showStreakInfo = true;
+            isLock = false;
+            if(allCardsShown()){
+                showStreakInfo = false;
+                isWon = true;
+            }
             updateUI();
             return;
         }
-        //todo lock the game for 2 sec
-        firstClickedCard.show = false;
-        secondClickedCard.show = false;
-        console.log("Wrong!");
-        firstClickedId = null;
-        updateUI();
+        onLoose(firstClickedCard, secondClickedCard);
     });
 }
+function allCardsShown(){
+    let allShown = true;
+    for(let card of cards){
+        if(!card.show){
+            allShown = false;
+        }
+    }
+    return allShown;
+}
 
-function listenForRestart(){
+function onLoose(firstClickedCard, secondClickedCard) {
+    updateUI();
+    setTimeout(() => {
+        firstClickedCard.show = false;
+        secondClickedCard.show = false;
+        streak = 0;
+        console.log("Wrong!");
+        showStreakInfo = false;
+        firstClickedId = null;
+        updateUI();
+        isLock = false;
+    }, 2000);
+}
+
+function listenForRestart() {
     const restartButton = document.getElementById("restart");
-    restartButton.addEventListener("click",function(event){
+    restartButton.addEventListener("click", function (event) {
         restart();
         updateUI();
     });
