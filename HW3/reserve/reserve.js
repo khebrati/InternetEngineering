@@ -1,4 +1,3 @@
-
 let seats = null;
 let movies = null;
 
@@ -43,3 +42,26 @@ document.addEventListener("DOMContentLoaded",async () => {
     await initDataFromFile();
     updateUi();
 })
+
+function nextHall() {
+    const oldHall = seats.selectedHall;
+    const oldHallIndex = seats.hallsData.findIndex(hall => hall.name === oldHall);
+    let newHallIndex = oldHallIndex + 1;
+    if(newHallIndex >= seats.hallsData.length){
+        newHallIndex = 0;
+    }
+    const newHall = seats.hallsData[newHallIndex];
+    seats.selectedHall = newHall.name;
+    updateUi();
+}
+function prevHall() {
+    const oldHall = seats.selectedHall;
+    const oldHallIndex = seats.hallsData.findIndex(hall => hall.name === oldHall);
+    let newHallIndex = oldHallIndex - 1;
+    if(newHallIndex < 0){
+        newHallIndex = seats.hallsData.length - 1;
+    }
+    const newHall = seats.hallsData[newHallIndex];
+    seats.selectedHall = newHall.name;
+    updateUi();
+}

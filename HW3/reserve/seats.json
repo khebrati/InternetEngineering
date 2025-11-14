@@ -1,117 +1,128 @@
 {
-  "selectedHall" : "hall1",
-  "selectedMovieId" : 2,
-  "hall1" : [
+  "selectedHall": "hall1",
+  "selectedMovieId": 2,
+  "hallsData": [
     {
-      "movieId" : 1,
-      "time" : "3:30PM",
-      "seats" : [
-        { "A1" : false }, { "A2" : true }, { "A3" : false }, { "A4" : true }, { "A5" : false }, { "A6" : false }, { "A7" : true }, { "A8" : false },
-        { "B1" : true }, { "B2" : false }, { "B3" : true }, { "B4" : false }, { "B5" : true }, { "B6" : false }, { "B7" : false }, { "B8" : true },
-        { "C1" : false }, { "C2" : false }, { "C3" : true }, { "C4" : true }, { "C5" : false }, { "C6" : true }, { "C7" : false }, { "C8" : false },
-        { "D1" : true }, { "D2" : false }, { "D3" : false }, { "D4" : true }, { "D5" : false }, { "D6" : false }, { "D7" : true }, { "D8" : true },
-        { "E1" : false }, { "E2" : true }, { "E3" : false }, { "E4" : false }, { "E5" : true }, { "E6" : true }, { "E7" : false }, { "E8" : false },
-        { "F1" : true }, { "F2" : false }, { "F3" : true }, { "F4" : false }, { "F5" : false }, { "F6" : false }, { "F7" : true }, { "F8" : true }
+      "name": "hall1",
+      "movies": [
+        {
+          "movieId": 1,
+          "time": "3:30PM",
+          "seats": [
+            { "A1": false }, { "A2": true }, { "A3": false }, { "A4": true }, { "A5": false }, { "A6": false }, { "A7": true }, { "A8": false },
+            { "B1": true }, { "B2": false }, { "B3": true }, { "B4": false }, { "B5": true }, { "B6": false }, { "B7": false }, { "B8": true },
+            { "C1": false }, { "C2": false }, { "C3": true }, { "C4": true }, { "C5": false }, { "C6": true }, { "C7": false }, { "C8": false },
+            { "D1": true }, { "D2": false }, { "D3": false }, { "D4": true }, { "D5": false }, { "D6": false }, { "D7": true }, { "D8": true },
+            { "E1": false }, { "E2": true }, { "E3": false }, { "E4": false }, { "E5": true }, { "E6": true }, { "E7": false }, { "E8": false },
+            { "F1": true }, { "F2": false }, { "F3": true }, { "F4": false }, { "F5": false }, { "F6": false }, { "F7": true }, { "F8": true }
+          ]
+        },
+        {
+          "movieId": 2,
+          "time": "6:00PM",
+          "seats": [
+            { "A1": true }, { "A2": false }, { "A3": true }, { "A4": false }, { "A5": true }, { "A6": true }, { "A7": false }, { "A8": true },
+            { "B1": false }, { "B2": true }, { "B3": false }, { "B4": true }, { "B5": false }, { "B6": true }, { "B7": true }, { "B8": false },
+            { "C1": true }, { "C2": true }, { "C3": false }, { "C4": false }, { "C5": true }, { "C6": false }, { "C7": true }, { "C8": true },
+            { "D1": false }, { "D2": true }, { "D3": true }, { "D4": false }, { "D5": true }, { "D6": true }, { "D7": false }, { "D8": false },
+            { "E1": true }, { "E2": false }, { "E3": true }, { "E4": true }, { "E5": false }, { "E6": false }, { "E7": true }, { "E8": true },
+            { "F1": false }, { "F2": true }, { "F3": false }, { "F4": true }, { "F5": true }, { "F6": true }, { "F7": false }, { "F8": false }
+          ]
+        },
+        {
+          "movieId": 3,
+          "time": "9:15PM",
+          "seats": [
+            { "A1": false }, { "A2": true }, { "A3": false }, { "A4": true }, { "A5": false }, { "A6": false }, { "A7": true }, { "A8": false },
+            { "B1": true }, { "B2": false }, { "B3": true }, { "B4": false }, { "B5": true }, { "B6": false }, { "B7": false }, { "B8": true },
+            { "C1": false }, { "C2": false }, { "C3": true }, { "C4": true }, { "C5": false }, { "C6": true }, { "C7": false }, { "C8": false },
+            { "D1": true }, { "D2": false }, { "D3": false }, { "D4": true }, { "D5": false }, { "D6": false }, { "D7": true }, { "D8": true },
+            { "E1": false }, { "E2": true }, { "E3": false }, { "E4": false }, { "E5": true }, { "E6": true }, { "E7": false }, { "E8": false },
+            { "F1": true }, { "F2": false }, { "F3": true }, { "F4": false }, { "F5": false }, { "F6": false }, { "F7": true }, { "F8": true }
+          ]
+        }
       ]
     },
     {
-      "movieId" : 2,
-      "time" : "6:00PM",
-      "seats" : [
-        { "A1" : true }, { "A2" : false }, { "A3" : true }, { "A4" : false }, { "A5" : true }, { "A6" : true }, { "A7" : false }, { "A8" : true },
-        { "B1" : false }, { "B2" : true }, { "B3" : false }, { "B4" : true }, { "B5" : false }, { "B6" : true }, { "B7" : true }, { "B8" : false },
-        { "C1" : true }, { "C2" : true }, { "C3" : false }, { "C4" : false }, { "C5" : true }, { "C6" : false }, { "C7" : true }, { "C8" : true },
-        { "D1" : false }, { "D2" : true }, { "D3" : true }, { "D4" : false }, { "D5" : true }, { "D6" : true }, { "D7" : false }, { "D8" : false },
-        { "E1" : true }, { "E2" : false }, { "E3" : true }, { "E4" : true }, { "E5" : false }, { "E6" : false }, { "E7" : true }, { "E8" : true },
-        { "F1" : false }, { "F2" : true }, { "F3" : false }, { "F4" : true }, { "F5" : true }, { "F6" : true }, { "F7" : false }, { "F8" : false }
+      "name": "hall2",
+      "movies": [
+        {
+          "movieId": 4,
+          "time": "2:00PM",
+          "seats": [
+            { "A1": true }, { "A2": true }, { "A3": false }, { "A4": false }, { "A5": true }, { "A6": false }, { "A7": true }, { "A8": false },
+            { "B1": false }, { "B2": false }, { "B3": true }, { "B4": true }, { "B5": false }, { "B6": true }, { "B7": false }, { "B8": true },
+            { "C1": true }, { "C2": false }, { "C3": false }, { "C4": true }, { "C5": true }, { "C6": false }, { "C7": true }, { "C8": false },
+            { "D1": false }, { "D2": true }, { "D3": true }, { "D4": false }, { "D5": false }, { "D6": true }, { "D7": false }, { "D8": true },
+            { "E1": true }, { "E2": false }, { "E3": true }, { "E4": false }, { "E5": true }, { "E6": false }, { "E7": true }, { "E8": false },
+            { "F1": false }, { "F2": true }, { "F3": false }, { "F4": true }, { "F5": false }, { "F6": true }, { "F7": false }, { "F8": true }
+          ]
+        },
+        {
+          "movieId": 5,
+          "time": "5:30PM",
+          "seats": [
+            { "A1": false }, { "A2": false }, { "A3": true }, { "A4": true }, { "A5": false }, { "A6": true }, { "A7": false }, { "A8": true },
+            { "B1": true }, { "B2": true }, { "B3": false }, { "B4": false }, { "B5": true }, { "B6": false }, { "B7": true }, { "B8": false },
+            { "C1": false }, { "C2": true }, { "C3": true }, { "C4": false }, { "C5": false }, { "C6": true }, { "C7": false }, { "C8": true },
+            { "D1": true }, { "D2": false }, { "D3": false }, { "D4": true }, { "D5": true }, { "D6": false }, { "D7": true }, { "D8": false },
+            { "E1": false }, { "E2": true }, { "E3": false }, { "E4": true }, { "E5": false }, { "E6": true }, { "E7": false }, { "E8": true },
+            { "F1": true }, { "F2": false }, { "F3": true }, { "F4": false }, { "F5": true }, { "F6": false }, { "F7": true }, { "F8": false }
+          ]
+        },
+        {
+          "movieId": 6,
+          "time": "8:45PM",
+          "seats": [
+            { "A1": true }, { "A2": false }, { "A3": false }, { "A4": true }, { "A5": true }, { "A6": false }, { "A7": false }, { "A8": true },
+            { "B1": false }, { "B2": true }, { "B3": true }, { "B4": false }, { "B5": false }, { "B6": true }, { "B7": true }, { "B8": false },
+            { "C1": true }, { "C2": false }, { "C3": true }, { "C4": true }, { "C5": false }, { "C6": false }, { "C7": true }, { "C8": true },
+            { "D1": false }, { "D2": true }, { "D3": false }, { "D4": false }, { "D5": true }, { "D6": true }, { "D7": false }, { "D8": false },
+            { "E1": true }, { "E2": false }, { "E3": true }, { "E4": false }, { "E5": true }, { "E6": false }, { "E7": true }, { "E8": false },
+            { "F1": false }, { "F2": true }, { "F3": false }, { "F4": true }, { "F5": false }, { "F6": true }, { "F7": false }, { "F8": true }
+          ]
+        }
       ]
     },
     {
-      "movieId" : 3,
-      "time" : "9:15PM",
-      "seats" : [
-        { "A1" : false }, { "A2" : true }, { "A3" : false }, { "A4" : true }, { "A5" : false }, { "A6" : false }, { "A7" : true }, { "A8" : false },
-        { "B1" : true }, { "B2" : false }, { "B3" : true }, { "B4" : false }, { "B5" : true }, { "B6" : false }, { "B7" : false }, { "B8" : true },
-        { "C1" : false }, { "C2" : false }, { "C3" : true }, { "C4" : true }, { "C5" : false }, { "C6" : true }, { "C7" : false }, { "C8" : false },
-        { "D1" : true }, { "D2" : false }, { "D3" : false }, { "D4" : true }, { "D5" : false }, { "D6" : false }, { "D7" : true }, { "D8" : true },
-        { "E1" : false }, { "E2" : true }, { "E3" : false }, { "E4" : false }, { "E5" : true }, { "E6" : true }, { "E7" : false }, { "E8" : false },
-        { "F1" : true }, { "F2" : false }, { "F3" : true }, { "F4" : false }, { "F5" : false }, { "F6" : false }, { "F7" : true }, { "F8" : true }
-      ]
-    }
-  ],
-  "hall2" : [
-    {
-      "movieId" : 4,
-      "time" : "2:00PM",
-      "seats" : [
-        { "A1" : true }, { "A2" : true }, { "A3" : false }, { "A4" : false }, { "A5" : true }, { "A6" : false }, { "A7" : true }, { "A8" : false },
-        { "B1" : false }, { "B2" : false }, { "B3" : true }, { "B4" : true }, { "B5" : false }, { "B6" : true }, { "B7" : false }, { "B8" : true },
-        { "C1" : true }, { "C2" : false }, { "C3" : false }, { "C4" : true }, { "C5" : true }, { "C6" : false }, { "C7" : true }, { "C8" : false },
-        { "D1" : false }, { "D2" : true }, { "D3" : true }, { "D4" : false }, { "D5" : false }, { "D6" : true }, { "D7" : false }, { "D8" : true },
-        { "E1" : true }, { "E2" : false }, { "E3" : true }, { "E4" : false }, { "E5" : true }, { "E6" : false }, { "E7" : true }, { "E8" : false },
-        { "F1" : false }, { "F2" : true }, { "F3" : false }, { "F4" : true }, { "F5" : false }, { "F6" : true }, { "F7" : false }, { "F8" : true }
-      ]
-    },
-    {
-      "movieId" : 5,
-      "time" : "5:30PM",
-      "seats" : [
-        { "A1" : false }, { "A2" : false }, { "A3" : true }, { "A4" : true }, { "A5" : false }, { "A6" : true }, { "A7" : false }, { "A8" : true },
-        { "B1" : true }, { "B2" : true }, { "B3" : false }, { "B4" : false }, { "B5" : true }, { "B6" : false }, { "B7" : true }, { "B8" : false },
-        { "C1" : false }, { "C2" : true }, { "C3" : true }, { "C4" : false }, { "C5" : false }, { "C6" : true }, { "C7" : false }, { "C8" : true },
-        { "D1" : true }, { "D2" : false }, { "D3" : false }, { "D4" : true }, { "D5" : true }, { "D6" : false }, { "D7" : true }, { "D8" : false },
-        { "E1" : false }, { "E2" : true }, { "E3" : false }, { "E4" : true }, { "E5" : false }, { "E6" : true }, { "E7" : false }, { "E8" : true },
-        { "F1" : true }, { "F2" : false }, { "F3" : true }, { "F4" : false }, { "F5" : true }, { "F6" : false }, { "F7" : true }, { "F8" : false }
-      ]
-    },
-    {
-      "movieId" : 6,
-      "time" : "8:45PM",
-      "seats" : [
-        { "A1" : true }, { "A2" : false }, { "A3" : false }, { "A4" : true }, { "A5" : true }, { "A6" : false }, { "A7" : false }, { "A8" : true },
-        { "B1" : false }, { "B2" : true }, { "B3" : true }, { "B4" : false }, { "B5" : false }, { "B6" : true }, { "B7" : true }, { "B8" : false },
-        { "C1" : true }, { "C2" : false }, { "C3" : true }, { "C4" : true }, { "C5" : false }, { "C6" : false }, { "C7" : true }, { "C8" : true },
-        { "D1" : false }, { "D2" : true }, { "D3" : false }, { "D4" : false }, { "D5" : true }, { "D6" : true }, { "D7" : false }, { "D8" : false },
-        { "E1" : true }, { "E2" : false }, { "E3" : true }, { "E4" : false }, { "E5" : true }, { "E6" : false }, { "E7" : true }, { "E8" : false },
-        { "F1" : false }, { "F2" : true }, { "F3" : false }, { "F4" : true }, { "F5" : false }, { "F6" : true }, { "F7" : false }, { "F8" : true }
-      ]
-    }
-  ],
-  "hall3" : [
-    {
-      "movieId" : 7,
-      "time" : "1:30PM",
-      "seats" : [
-        { "A1" : false }, { "A2" : true }, { "A3" : true }, { "A4" : false }, { "A5" : false }, { "A6" : true }, { "A7" : true }, { "A8" : false },
-        { "B1" : true }, { "B2" : false }, { "B3" : false }, { "B4" : true }, { "B5" : true }, { "B6" : false }, { "B7" : false }, { "B8" : true },
-        { "C1" : false }, { "C2" : true }, { "C3" : false }, { "C4" : false }, { "C5" : true }, { "C6" : true }, { "C7" : false }, { "C8" : true },
-        { "D1" : true }, { "D2" : false }, { "D3" : true }, { "D4" : true }, { "D5" : false }, { "D6" : false }, { "D7" : true }, { "D8" : false },
-        { "E1" : false }, { "E2" : true }, { "E3" : false }, { "E4" : true }, { "E5" : true }, { "E6" : false }, { "E7" : false }, { "E8" : true },
-        { "F1" : true }, { "F2" : false }, { "F3" : true }, { "F4" : false }, { "F5" : false }, { "F6" : true }, { "F7" : true }, { "F8" : false }
-      ]
-    },
-    {
-      "movieId" : 8,
-      "time" : "4:45PM",
-      "seats" : [
-        { "A1" : true }, { "A2" : false }, { "A3" : true }, { "A4" : false }, { "A5" : true }, { "A6" : false }, { "A7" : false }, { "A8" : true },
-        { "B1" : false }, { "B2" : true }, { "B3" : false }, { "B4" : true }, { "B5" : false }, { "B6" : true }, { "B7" : true }, { "B8" : false },
-        { "C1" : true }, { "C2" : false }, { "C3" : false }, { "C4" : true }, { "C5" : false }, { "C6" : false }, { "C7" : true }, { "C8" : false },
-        { "D1" : false }, { "D2" : true }, { "D3" : true }, { "D4" : false }, { "D5" : true }, { "D6" : true }, { "D7" : false }, { "D8" : true },
-        { "E1" : true }, { "E2" : false }, { "E3" : true }, { "E4" : true }, { "E5" : false }, { "E6" : false }, { "E7" : true }, { "E8" : false },
-        { "F1" : false }, { "F2" : true }, { "F3" : false }, { "F4" : false }, { "F5" : true }, { "F6" : true }, { "F7" : false }, { "F8" : true }
-      ]
-    },
-    {
-      "movieId" : 9,
-      "time" : "7:30PM",
-      "seats" : [
-        { "A1" : false }, { "A2" : false }, { "A3" : false }, { "A4" : true }, { "A5" : true }, { "A6" : false }, { "A7" : true }, { "A8" : false },
-        { "B1" : true }, { "B2" : true }, { "B3" : true }, { "B4" : false }, { "B5" : false }, { "B6" : true }, { "B7" : false }, { "B8" : true },
-        { "C1" : false }, { "C2" : true }, { "C3" : false }, { "C4" : true }, { "C5" : true }, { "C6" : false }, { "C7" : true }, { "C8" : false },
-        { "D1" : true }, { "D2" : false }, { "D3" : true }, { "D4" : false }, { "D5" : false }, { "D6" : true }, { "D7" : false }, { "D8" : true },
-        { "E1" : false }, { "E2" : true }, { "E3" : false }, { "E4" : true }, { "E5" : false }, { "E6" : true }, { "E7" : true }, { "E8" : false },
-        { "F1" : true }, { "F2" : false }, { "F3" : true }, { "F4" : false }, { "F5" : true }, { "F6" : false }, { "F7" : false }, { "F8" : true }
+      "name": "hall3",
+      "movies": [
+        {
+          "movieId": 7,
+          "time": "1:30PM",
+          "seats": [
+            { "A1": false }, { "A2": true }, { "A3": true }, { "A4": false }, { "A5": false }, { "A6": true }, { "A7": true }, { "A8": false },
+            { "B1": true }, { "B2": false }, { "B3": false }, { "B4": true }, { "B5": true }, { "B6": false }, { "B7": false }, { "B8": true },
+            { "C1": false }, { "C2": true }, { "C3": false }, { "C4": false }, { "C5": true }, { "C6": true }, { "C7": false }, { "C8": true },
+            { "D1": true }, { "D2": false }, { "D3": true }, { "D4": true }, { "D5": false }, { "D6": false }, { "D7": true }, { "D8": false },
+            { "E1": false }, { "E2": true }, { "E3": false }, { "E4": true }, { "E5": true }, { "E6": false }, { "E7": false }, { "E8": true },
+            { "F1": true }, { "F2": false }, { "F3": true }, { "F4": false }, { "F5": false }, { "F6": true }, { "F7": true }, { "F8": false }
+          ]
+        },
+        {
+          "movieId": 8,
+          "time": "4:45PM",
+          "seats": [
+            { "A1": true }, { "A2": false }, { "A3": true }, { "A4": false }, { "A5": true }, { "A6": false }, { "A7": false }, { "A8": true },
+            { "B1": false }, { "B2": true }, { "B3": false }, { "B4": true }, { "B5": false }, { "B6": true }, { "B7": true }, { "B8": false },
+            { "C1": true }, { "C2": false }, { "C3": false }, { "C4": true }, { "C5": false }, { "C6": false }, { "C7": true }, { "C8": false },
+            { "D1": false }, { "D2": true }, { "D3": true }, { "D4": false }, { "D5": true }, { "D6": true }, { "D7": false }, { "D8": true },
+            { "E1": true }, { "E2": false }, { "E3": true }, { "E4": true }, { "E5": false }, { "E6": false }, { "E7": true }, { "E8": false },
+            { "F1": false }, { "F2": true }, { "F3": false }, { "F4": false }, { "F5": true }, { "F6": true }, { "F7": false }, { "F8": true }
+          ]
+        },
+        {
+          "movieId": 9,
+          "time": "7:30PM",
+          "seats": [
+            { "A1": false }, { "A2": false }, { "A3": false }, { "A4": true }, { "A5": true }, { "A6": false }, { "A7": true }, { "A8": false },
+            { "B1": true }, { "B2": true }, { "B3": true }, { "B4": false }, { "B5": false }, { "B6": true }, { "B7": false }, { "B8": true },
+            { "C1": false }, { "C2": true }, { "C3": false }, { "C4": true }, { "C5": true }, { "C6": false }, { "C7": true }, { "C8": false },
+            { "D1": true }, { "D2": false }, { "D3": true }, { "D4": false }, { "D5": false }, { "D6": true }, { "D7": false }, { "D8": true },
+            { "E1": false }, { "E2": true }, { "E3": false }, { "E4": true }, { "E5": false }, { "E6": true }, { "E7": true }, { "E8": false },
+            { "F1": true }, { "F2": false }, { "F3": true }, { "F4": false }, { "F5": true }, { "F6": false }, { "F7": false }, { "F8": true }
+          ]
+        }
       ]
     }
   ]
