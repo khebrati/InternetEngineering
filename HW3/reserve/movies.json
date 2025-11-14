@@ -1,0 +1,49 @@
+{
+  "movies": [
+    {
+      "id": 1,
+      "name": "Kill Bill Vol1",
+      "poster": "moviePosters/kill-bill-poster.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Pulp Fiction",
+      "poster": "moviePosters/pulp-fiction-poster.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Reservoir Dogs",
+      "poster": "moviePosters/reservoir-dogs-poster.webp"
+    },
+    {
+      "id": 4,
+      "name": "The Matrix",
+      "poster": "moviePosters/matrix-poster.jpg"
+    },
+    {
+      "id": 5,
+      "name": "Inception",
+      "poster": "moviePosters/inception-poster.jpg"
+    },
+    {
+      "id": 6,
+      "name": "Interstellar",
+      "poster": "moviePosters/interstellar-poster.jpg"
+    },
+    {
+      "id": 7,
+      "name": "The Dark Knight",
+      "poster": "moviePosters/dark-knight-poster.jpg"
+    },
+    {
+      "id": 8,
+      "name": "Fight Club",
+      "poster": "moviePosters/fight-club-poster.jpg"
+    },
+    {
+      "id": 9,
+      "name": "The Godfather",
+      "poster": "moviePosters/godfather-poster.jpg"
+    }
+  ]
+}
