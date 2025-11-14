@@ -7,8 +7,8 @@ async function setMoviePoster(movie) {
     posterImageEl.src = movie.poster;
 }
 
-async function setMovieDetails(id) {
-    let selectedMovie = null;
+async function setMovieInUi(id) {
+    let selectedMovie = getMovieDetails(id);
     for (let movie of movies.movies) {
         if (movie.id === id) {
             selectedMovie = movie;
@@ -17,12 +17,39 @@ async function setMovieDetails(id) {
     setSimpleId("next-movie-text", selectedMovie.name);
     await setMoviePoster(selectedMovie);
 }
+function getMovieDetails(id){
+    let selectedMovie = null;
+    for (let movie of movies.movies) {
+        if (movie.id === id) {
+            selectedMovie = movie;
+        }
+    }
+    return selectedMovie;
+}
+async function initDataFromFile() {
+    const storedSeats = localStorage.getItem("seats");
+    const storedMovies = localStorage.getItem("movies");
 
+    if (storedSeats && storedMovies) {
+        seats = JSON.parse(storedSeats);
+        movies = JSON.parse(storedMovies);
+    } else {
+        const rawSeatsData = await fetch('seats.json');
+        seats = await rawSeatsData.json();
+        const rawMovieData = await fetch('movies.json');
+        movies = await rawMovieData.json();
+
+        localStorage.setItem("seats", JSON.stringify(seats));
+        localStorage.setItem("movies", JSON.stringify(movies));
+    }
+}
 async function updateUi() {
+    localStorage.setItem("seats",JSON.stringify(seats));
+    localStorage.setItem("movies",JSON.stringify(movies))
     setSimpleId("next-hall-text", seats.selectedHall);
     const selectedHall = seats.hallsData.find(hall => hall.name === seats.selectedHall)
     const selectedMovieId = selectedHall.selectedMovieId;
-    await setMovieDetails(selectedMovieId);
+    await setMovieInUi(selectedMovieId);
     const selectedMovie = getSelectedMovie();
     const seatsState = selectedMovie.seats;
     const seatsUis = document.getElementsByClassName("seat")
@@ -32,6 +59,7 @@ async function updateUi() {
         const key = row + col;
         const stateSeat = seatsState.find(el => el.key === key)
         seatUi.dataset.reserved = stateSeat.reserved;
+        seatUi.dataset.selected = stateSeat.selected;
     }
 }
 
@@ -40,16 +68,29 @@ function setSimpleId(id, text) {
     element.innerText = text
 }
 
-async function initDataFromFile() {
-    const rawSeatsData = await fetch('seats.json')
-    seats = await rawSeatsData.json()
-    console.log(seats)
-    const rawMovieData = await fetch('movies.json')
-    movies = await rawMovieData.json()
-    console.log(movies)
+function generateSeats() {
+    const seatsContainer = document.getElementById('seats');
+    const rows = ['A', 'B', 'C', 'D', 'E', 'F'];
+    const cols = 8;
+
+    rows.forEach(row => {
+        for (let col = 1; col <= cols; col++) {
+            const seat = document.createElement('div');
+            seat.className = 'seat';
+            seat.dataset.row = row;
+            seat.dataset.col = col;
+            seat.dataset.reserved = 'false';
+            seat.dataset.selected = 'false';
+            seat.onclick = function() {
+                selectSeat(this.dataset.row, this.dataset.col, this.dataset.selected);
+            };
+            seatsContainer.appendChild(seat);
+        }
+    });
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
+    generateSeats();
     await initDataFromFile();
     updateUi();
 })
@@ -117,11 +158,27 @@ function prevMovie() {
     console.log(`new movie id: ${newMovieId}`)
     updateUi();
 }
-
-function seatClick(row, col, reserved) {
+function reserveSeat(){
+    const selectedSeats = getSelectedMovie().seats.filter(seat => seat.selected);
+    const userData = JSON.parse(localStorage.getItem("user"))
+    const reservationData = {
+        "name" : userData.name,
+        "email": userData.email,
+        "phone": userData.mobile,
+        "movie": getMovieDetails(getSelectedMovie().id).name,
+        //todo add showtime
+        "seats": selectedSeats.map(seat => seat.key)
+    }
+    console.log(reservationData);
+}
+function selectSeat(row, col, selected) {
     const seat = getSeat(row, col);
-    seat.reserved = !(JSON.parse(reserved));
-    updateUi();
+    if(seat.reserved){
+        alert("You cant select a reserved seat!");
+        return;
+    }
+    seat.selected = !(JSON.parse(selected));
+    updateUi();               
 }
 
 function getSeat(row, col) {

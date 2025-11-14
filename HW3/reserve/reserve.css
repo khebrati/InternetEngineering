@@ -37,3 +37,6 @@
 .seat[data-reserved="true"]{
     background-color: #638FB6;
 }
+.seat[data-selected="true"]{
+    background-color: #93000A;
+}
