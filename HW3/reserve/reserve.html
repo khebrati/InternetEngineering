@@ -4,87 +4,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="reserve.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <script src="reserve.js"></script>
     <title>Reservation</title>
 </head>
 
 <body>
-    <div id="background">
-        <div id="movie-selection">
-            <img id="movie-poster" src="moviePosters/kill-bill-poster.jpg" alt="kill-bill-poster">
-            <div id="next-movie" class="selection">
-                <i class="fa fa-caret-left fa-2x" aria-hidden="true" onclick="prevMovie()"></i>
-                <div id="next-movie-text">
-                    Kill bill Vol1
-                </div>
-                <i class="fa fa-caret-right fa-2x" aria-hidden="true" onclick="nextMovie()"></i>
+<div id="background">
+    <div id="movie-selection">
+        <img id="movie-poster" src="moviePosters/kill-bill-poster.jpg" alt="kill-bill-poster">
+        <div id="next-movie" class="selection">
+            <i class="fa fa-caret-left fa-2x" aria-hidden="true" onclick="prevMovie()"></i>
+            <div id="next-movie-text">
+                Kill bill Vol1
             </div>
-        </div>
-        <div>
-            <div id="next-hall" class="next-hall selection">
-                <i class="fa fa-caret-left fa-2x" aria-hidden="true" onclick="prevHall()" ></i>
-                <div id="next-hall-text">
-                </div>
-                <i class="fa fa-caret-right fa-2x" aria-hidden="true" onclick="nextHall()"></i>
-            </div>
-            <div id="seats">
-                <div class="seat" data-row="A" data-col="1"></div>
-                <div class="seat" data-row="A" data-col="2"></div>
-                <div class="seat" data-row="A" data-col="3"></div>
-                <div class="seat" data-row="A" data-col="4"></div>
-                <div class="seat" data-row="A" data-col="5"></div>
-                <div class="seat" data-row="A" data-col="6"></div>
-                <div class="seat" data-row="A" data-col="7"></div>
-                <div class="seat" data-row="A" data-col="8"></div>
-
-                <div class="seat" data-row="B" data-col="1"></div>
-                <div class="seat" data-row="B" data-col="2"></div>
-                <div class="seat" data-row="B" data-col="3"></div>
-                <div class="seat" data-row="B" data-col="4"></div>
-                <div class="seat" data-row="B" data-col="5"></div>
-                <div class="seat" data-row="B" data-col="6"></div>
-                <div class="seat" data-row="B" data-col="7"></div>
-                <div class="seat" data-row="B" data-col="8"></div>
-
-                <div class="seat" data-row="C" data-col="1"></div>
-                <div class="seat" data-row="C" data-col="2"></div>
-                <div class="seat" data-row="C" data-col="3"></div>
-                <div class="seat" data-row="C" data-col="4"></div>
-                <div class="seat" data-row="C" data-col="5"></div>
-                <div class="seat" data-row="C" data-col="6"></div>
-                <div class="seat" data-row="C" data-col="7"></div>
-                <div class="seat" data-row="C" data-col="8"></div>
-
-                <div class="seat" data-row="D" data-col="1"></div>
-                <div class="seat" data-row="D" data-col="2"></div>
-                <div class="seat" data-row="D" data-col="3"></div>
-                <div class="seat" data-row="D" data-col="4"></div>
-                <div class="seat" data-row="D" data-col="5"></div>
-                <div class="seat" data-row="D" data-col="6"></div>
-                <div class="seat" data-row="D" data-col="7"></div>
-                <div class="seat" data-row="D" data-col="8"></div>
-
-                <div class="seat" data-row="E" data-col="1"></div>
-                <div class="seat" data-row="E" data-col="2"></div>
-                <div class="seat" data-row="E" data-col="3"></div>
-                <div class="seat" data-row="E" data-col="4"></div>
-                <div class="seat" data-row="E" data-col="5"></div>
-                <div class="seat" data-row="E" data-col="6"></div>
-                <div class="seat" data-row="E" data-col="7"></div>
-                <div class="seat" data-row="E" data-col="8"></div>
-
-                <div class="seat" data-row="F" data-col="1"></div>
-                <div class="seat" data-row="F" data-col="2"></div>
-                <div class="seat" data-row="F" data-col="3"></div>
-                <div class="seat" data-row="F" data-col="4"></div>
-                <div class="seat" data-row="F" data-col="5"></div>
-                <div class="seat" data-row="F" data-col="6"></div>
-                <div class="seat" data-row="F" data-col="7"></div>
-                <div class="seat" data-row="F" data-col="8"></div>
-            </div>
+            <i class="fa fa-caret-right fa-2x" aria-hidden="true" onclick="nextMovie()"></i>
         </div>
     </div>
+    <div>
+        <div id="next-hall" class="next-hall selection">
+            <i class="fa fa-caret-left fa-2x" aria-hidden="true" onclick="prevHall()"></i>
+            <div id="next-hall-text">
+            </div>
+            <i class="fa fa-caret-right fa-2x" aria-hidden="true" onclick="nextHall()"></i>
+        </div>
+        <div id="seats">
+            <div class="seat" data-row="A" data-col="1" data-reserved="false"></div>
+            <div class="seat" data-row="A" data-col="2" data-reserved="false"></div>
+            <div class="seat" data-row="A" data-col="3" data-reserved="false"></div>
+            <div class="seat" data-row="A" data-col="4" data-reserved="false"></div>
+            <div class="seat" data-row="A" data-col="5" data-reserved="false"></div>
+            <div class="seat" data-row="A" data-col="6" data-reserved="false"></div>
+            <div class="seat" data-row="A" data-col="7" data-reserved="false"></div>
+            <div class="seat" data-row="A" data-col="8" data-reserved="false"></div>
+
+            <div class="seat" data-row="B" data-col="1" data-reserved="false"></div>
+            <div class="seat" data-row="B" data-col="2" data-reserved="false"></div>
+            <div class="seat" data-row="B" data-col="3" data-reserved="false"></div>
+            <div class="seat" data-row="B" data-col="4" data-reserved="false"></div>
+            <div class="seat" data-row="B" data-col="5" data-reserved="false"></div>
+            <div class="seat" data-row="B" data-col="6" data-reserved="false"></div>
+            <div class="seat" data-row="B" data-col="7" data-reserved="false"></div>
+            <div class="seat" data-row="B" data-col="8" data-reserved="false"></div>
+
+            <div class="seat" data-row="C" data-col="1" data-reserved="false"></div>
+            <div class="seat" data-row="C" data-col="2" data-reserved="false"></div>
+            <div class="seat" data-row="C" data-col="3" data-reserved="false"></div>
+            <div class="seat" data-row="C" data-col="4" data-reserved="false"></div>
+            <div class="seat" data-row="C" data-col="5" data-reserved="false"></div>
+            <div class="seat" data-row="C" data-col="6" data-reserved="false"></div>
+            <div class="seat" data-row="C" data-col="7" data-reserved="false"></div>
+            <div class="seat" data-row="C" data-col="8" data-reserved="false"></div>
+
+            <div class="seat" data-row="D" data-col="1" data-reserved="false"></div>
+            <div class="seat" data-row="D" data-col="2" data-reserved="false"></div>
+            <div class="seat" data-row="D" data-col="3" data-reserved="false"></div>
+            <div class="seat" data-row="D" data-col="4" data-reserved="false"></div>
+            <div class="seat" data-row="D" data-col="5" data-reserved="false"></div>
+            <div class="seat" data-row="D" data-col="6" data-reserved="false"></div>
+            <div class="seat" data-row="D" data-col="7" data-reserved="false"></div>
+            <div class="seat" data-row="D" data-col="8" data-reserved="false"></div>
+
+            <div class="seat" data-row="E" data-col="1" data-reserved="false"></div>
+            <div class="seat" data-row="E" data-col="2" data-reserved="false"></div>
+            <div class="seat" data-row="E" data-col="3" data-reserved="false"></div>
+            <div class="seat" data-row="E" data-col="4" data-reserved="false"></div>
+            <div class="seat" data-row="E" data-col="5" data-reserved="false"></div>
+            <div class="seat" data-row="E" data-col="6" data-reserved="false"></div>
+            <div class="seat" data-row="E" data-col="7" data-reserved="false"></div>
+            <div class="seat" data-row="E" data-col="8" data-reserved="false"></div>
+
+            <div class="seat" data-row="F" data-col="1" data-reserved="false"></div>
+            <div class="seat" data-row="F" data-col="2" data-reserved="false"></div>
+            <div class="seat" data-row="F" data-col="3" data-reserved="false"></div>
+            <div class="seat" data-row="F" data-col="4" data-reserved="false"></div>
+            <div class="seat" data-row="F" data-col="5" data-reserved="false"></div>
+            <div class="seat" data-row="F" data-col="6" data-reserved="false"></div>
+            <div class="seat" data-row="F" data-col="7" data-reserved="false"></div>
+            <div class="seat" data-row="F" data-col="8" data-reserved="false"></div>
+        </div>
+    </div>
+</div>
 </body>
 
 </html>

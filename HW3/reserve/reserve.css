@@ -34,3 +34,6 @@
     border-radius: 20%;
     background-color: gray;
 }
+.seat[data-reserved="true"]{
+    background-color: #638FB6;
+}

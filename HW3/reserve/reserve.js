@@ -15,7 +15,7 @@ async function setMovieDetails(id) {
         }
     }
     setSimpleId("next-movie-text",selectedMovie.name);
-    setMoviePoster(selectedMovie);
+    await setMoviePoster(selectedMovie);
 }
 
 async function updateUi(){
@@ -23,6 +23,16 @@ async function updateUi(){
     const selectedHall = seats.hallsData.find(hall => hall.name === seats.selectedHall)
     const selectedMovieId = selectedHall.selectedMovieId;
     await setMovieDetails(selectedMovieId);
+    const selectedMovie = getSelectedMovie();
+    const seatsState = selectedMovie.seats;
+    const seatsUis = document.getElementsByClassName("seat")
+    for(let seatUi of seatsUis){
+        const col = seatUi.dataset.col;
+        const row = seatUi.dataset.row;
+        const key = row + col;
+        const stateSeat = seatsState.find(el => el.key === key)
+        seatUi.dataset.reserved = stateSeat.reserved;
+    }
 }
 
 function setSimpleId(id,text){
@@ -68,6 +78,11 @@ function prevHall() {
 
 function getSelectedHall() {
     return seats.hallsData.find(hall => hall.name === seats.selectedHall)
+}
+function getSelectedMovie(){
+    const selectedHall = getSelectedHall();
+    const movieId = selectedHall.selectedMovieId;
+    return selectedHall.movies.find(movie => movie.id === movieId);
 }
 function nextMovie() {
     const selectedHall = getSelectedHall();
