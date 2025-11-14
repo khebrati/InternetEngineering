@@ -1,8 +1,8 @@
 {
   "selectedHall": "hall1",
-  "selectedMovieId": 2,
   "hallsData": [
     {
+      "selectedMovieId": 1,
       "name": "hall1",
       "movies": [
         {
@@ -45,6 +45,7 @@
     },
     {
       "name": "hall2",
+      "selectedMovieId": 4,
       "movies": [
         {
           "movieId": 4,
@@ -86,6 +87,7 @@
     },
     {
       "name": "hall3",
+      "selectedMovieId": 7,
       "movies": [
         {
           "movieId": 7,

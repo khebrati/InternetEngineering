@@ -7,8 +7,7 @@ async function setMoviePoster(movie) {
     posterImageEl.src = movie.poster;
 }
 
-function setMovieDetails() {
-    const id = seats.selectedMovieId;
+function setMovieDetails(id) {
     let selectedMovie = null;
     for(let movie of movies.movies){
         if(movie.id === id){
@@ -21,8 +20,9 @@ function setMovieDetails() {
 
 function updateUi(){
     setSimpleId("next-hall-text",seats.selectedHall);
-    setSimpleId("next-movie-text",seats.selectedMovie);
-    setMovieDetails();
+    const selectedHall = seats.hallsData.find(hall => hall.name === seats.selectedHall)
+    const selectedMovieId = selectedHall.selectedMovieId;
+    setMovieDetails(selectedMovieId);
 }
 
 function setSimpleId(id,text){
