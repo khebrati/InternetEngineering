@@ -6,7 +6,7 @@
       "name": "hall1",
       "movies": [
         {
-          "movieId": 1,
+          "id": 1,
           "time": "3:30PM",
           "seats": [
             { "A1": false }, { "A2": true }, { "A3": false }, { "A4": true }, { "A5": false }, { "A6": false }, { "A7": true }, { "A8": false },
@@ -18,7 +18,7 @@
           ]
         },
         {
-          "movieId": 2,
+          "id": 2,
           "time": "6:00PM",
           "seats": [
             { "A1": true }, { "A2": false }, { "A3": true }, { "A4": false }, { "A5": true }, { "A6": true }, { "A7": false }, { "A8": true },
@@ -30,7 +30,7 @@
           ]
         },
         {
-          "movieId": 3,
+          "id": 3,
           "time": "9:15PM",
           "seats": [
             { "A1": false }, { "A2": true }, { "A3": false }, { "A4": true }, { "A5": false }, { "A6": false }, { "A7": true }, { "A8": false },
@@ -48,7 +48,7 @@
       "selectedMovieId": 4,
       "movies": [
         {
-          "movieId": 4,
+          "id": 4,
           "time": "2:00PM",
           "seats": [
             { "A1": true }, { "A2": true }, { "A3": false }, { "A4": false }, { "A5": true }, { "A6": false }, { "A7": true }, { "A8": false },
@@ -60,7 +60,7 @@
           ]
         },
         {
-          "movieId": 5,
+          "id": 5,
           "time": "5:30PM",
           "seats": [
             { "A1": false }, { "A2": false }, { "A3": true }, { "A4": true }, { "A5": false }, { "A6": true }, { "A7": false }, { "A8": true },
@@ -72,7 +72,7 @@
           ]
         },
         {
-          "movieId": 6,
+          "id": 6,
           "time": "8:45PM",
           "seats": [
             { "A1": true }, { "A2": false }, { "A3": false }, { "A4": true }, { "A5": true }, { "A6": false }, { "A7": false }, { "A8": true },
@@ -90,7 +90,7 @@
       "selectedMovieId": 7,
       "movies": [
         {
-          "movieId": 7,
+          "id": 7,
           "time": "1:30PM",
           "seats": [
             { "A1": false }, { "A2": true }, { "A3": true }, { "A4": false }, { "A5": false }, { "A6": true }, { "A7": true }, { "A8": false },
@@ -102,7 +102,7 @@
           ]
         },
         {
-          "movieId": 8,
+          "id": 8,
           "time": "4:45PM",
           "seats": [
             { "A1": true }, { "A2": false }, { "A3": true }, { "A4": false }, { "A5": true }, { "A6": false }, { "A7": false }, { "A8": true },
@@ -114,7 +114,7 @@
           ]
         },
         {
-          "movieId": 9,
+          "id": 9,
           "time": "7:30PM",
           "seats": [
             { "A1": false }, { "A2": false }, { "A3": false }, { "A4": true }, { "A5": true }, { "A6": false }, { "A7": true }, { "A8": false },

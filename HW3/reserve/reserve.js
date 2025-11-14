@@ -7,7 +7,7 @@ async function setMoviePoster(movie) {
     posterImageEl.src = movie.poster;
 }
 
-function setMovieDetails(id) {
+async function setMovieDetails(id) {
     let selectedMovie = null;
     for(let movie of movies.movies){
         if(movie.id === id){
@@ -18,11 +18,11 @@ function setMovieDetails(id) {
     setMoviePoster(selectedMovie);
 }
 
-function updateUi(){
+async function updateUi(){
     setSimpleId("next-hall-text",seats.selectedHall);
     const selectedHall = seats.hallsData.find(hall => hall.name === seats.selectedHall)
     const selectedMovieId = selectedHall.selectedMovieId;
-    setMovieDetails(selectedMovieId);
+    await setMovieDetails(selectedMovieId);
 }
 
 function setSimpleId(id,text){
@@ -63,5 +63,37 @@ function prevHall() {
     }
     const newHall = seats.hallsData[newHallIndex];
     seats.selectedHall = newHall.name;
+    updateUi();
+}
+
+function getSelectedHall() {
+    return seats.hallsData.find(hall => hall.name === seats.selectedHall)
+}
+function nextMovie() {
+    const selectedHall = getSelectedHall();
+    const oldMovieId = selectedHall.selectedMovieId;
+    const oldMovieIndex = selectedHall.movies.findIndex(movie => movie.id === oldMovieId);
+    let newMovieIndex = oldMovieIndex + 1;
+    if(newMovieIndex >= selectedHall.movies.length){
+        newMovieIndex = 0;
+    }
+    console.log(`new movie index: ${newMovieIndex}`)
+    const newMovieId = selectedHall.movies[newMovieIndex].id;
+    selectedHall.selectedMovieId = newMovieId;
+    console.log(`new movie id: ${newMovieId}`)
+    updateUi();
+}
+function prevMovie() {
+    const selectedHall = getSelectedHall();
+    const oldMovieId = selectedHall.selectedMovieId;
+    const oldMovieIndex = selectedHall.movies.findIndex(movie => movie.id === oldMovieId);
+    let newMovieIndex = oldMovieIndex - 1;
+    if(newMovieIndex < 0){
+        newMovieIndex = selectedHall.movies.length - 1;
+    }
+    console.log(`new movie index: ${newMovieIndex}`)
+    const newMovieId = selectedHall.movies[newMovieIndex].id;
+    selectedHall.selectedMovieId = newMovieId;
+    console.log(`new movie id: ${newMovieId}`)
     updateUi();
 }
