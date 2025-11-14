@@ -17,7 +17,8 @@ async function setMovieInUi(id) {
     setSimpleId("next-movie-text", selectedMovie.name);
     await setMoviePoster(selectedMovie);
 }
-function getMovieDetails(id){
+
+function getMovieDetails(id) {
     let selectedMovie = null;
     for (let movie of movies.movies) {
         if (movie.id === id) {
@@ -26,6 +27,7 @@ function getMovieDetails(id){
     }
     return selectedMovie;
 }
+
 async function initDataFromFile() {
     const storedSeats = localStorage.getItem("seats");
     const storedMovies = localStorage.getItem("movies");
@@ -43,9 +45,10 @@ async function initDataFromFile() {
         localStorage.setItem("movies", JSON.stringify(movies));
     }
 }
+
 async function updateUi() {
-    localStorage.setItem("seats",JSON.stringify(seats));
-    localStorage.setItem("movies",JSON.stringify(movies))
+    localStorage.setItem("seats", JSON.stringify(seats));
+    localStorage.setItem("movies", JSON.stringify(movies))
     setSimpleId("next-hall-text", seats.selectedHall);
     const selectedHall = seats.hallsData.find(hall => hall.name === seats.selectedHall)
     const selectedMovieId = selectedHall.selectedMovieId;
@@ -61,6 +64,7 @@ async function updateUi() {
         seatUi.dataset.reserved = stateSeat.reserved;
         seatUi.dataset.selected = stateSeat.selected;
     }
+    setSimpleId("movie-time",selectedMovie.time);
 }
 
 function setSimpleId(id, text) {
@@ -81,7 +85,7 @@ function generateSeats() {
             seat.dataset.col = col;
             seat.dataset.reserved = 'false';
             seat.dataset.selected = 'false';
-            seat.onclick = function() {
+            seat.onclick = function () {
                 selectSeat(this.dataset.row, this.dataset.col, this.dataset.selected);
             };
             seatsContainer.appendChild(seat);
@@ -158,11 +162,12 @@ function prevMovie() {
     console.log(`new movie id: ${newMovieId}`)
     updateUi();
 }
-function reserveSeat(){
+
+function reserveSeat() {
     const selectedSeats = getSelectedMovie().seats.filter(seat => seat.selected);
     const userData = JSON.parse(localStorage.getItem("user"))
     const reservationData = {
-        "name" : userData.name,
+        "name": userData.name,
         "email": userData.email,
         "phone": userData.mobile,
         "movie": getMovieDetails(getSelectedMovie().id).name,
@@ -170,15 +175,32 @@ function reserveSeat(){
         "seats": selectedSeats.map(seat => seat.key)
     }
     console.log(reservationData);
+    fetch("https://reqres.in/api/users", {
+        method: "Post",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(reservationData)
+    }).then((response) => {
+        if(response.ok){
+            for(let seat of selectedSeats){
+                seat.reserved = true;
+            }
+            updateUi();
+        }else{
+            alert(response.statusText)
+        }
+    }).catch((error) =>
+        alert(error)
+    );
 }
+
 function selectSeat(row, col, selected) {
     const seat = getSeat(row, col);
-    if(seat.reserved){
+    if (seat.reserved) {
         alert("You cant select a reserved seat!");
         return;
     }
     seat.selected = !(JSON.parse(selected));
-    updateUi();               
+    updateUi();
 }
 
 function getSeat(row, col) {
