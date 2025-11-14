@@ -5,6 +5,10 @@
     align-items: center;
     justify-content: center;
 }
+#next-hall{
+    display: flex;
+    flex-direction: row;
+}
 #userInfoForm{
     display: flex;
     flex-direction: column;

@@ -1,0 +1,36 @@
+#background{
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+}
+#seats{
+    display: grid;
+    grid-template-columns: repeat(8,1fr);
+    grid-template-rows: repeat(5,1fr);
+    width: fit-content;
+    height: fit-content;
+    gap: 8px;
+}
+.selection{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+#movie-poster{
+    width: 180px;
+    height: auto;
+}
+.fa-carret-right{
+    width: 50px;
+}
+.seat{
+    width: 40px;
+    height: 40px;
+    border-radius: 20%;
+    background-color: gray;
+}
