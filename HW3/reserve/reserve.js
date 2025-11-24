@@ -165,13 +165,18 @@ function prevMovie() {
 
 function reserveSeat() {
     const selectedSeats = getSelectedMovie().seats.filter(seat => seat.selected);
+    if(selectedSeats.length <= 0){
+        alert("Select a seat!");
+        return;
+    }
     const userData = JSON.parse(localStorage.getItem("user"))
+    const  selectedMovie = getSelectedMovie();
     const reservationData = {
         "name": userData.name,
         "email": userData.email,
         "phone": userData.mobile,
-        "movie": getMovieDetails(getSelectedMovie().id).name,
-        //todo add showtime
+        "movie": getMovieDetails(selectedMovie.id).name,
+        "showtime": selectedMovie.time,
         "seats": selectedSeats.map(seat => seat.key)
     }
     console.log(reservationData);
@@ -182,11 +187,12 @@ function reserveSeat() {
     }).then((response) => {
         if(response.ok){
             for(let seat of selectedSeats){
+                seat.selected = false;
                 seat.reserved = true;
             }
             updateUi();
         }else{
-            alert(response.statusText)
+            alert(`Got error with code: ${response.status}`)
         }
     }).catch((error) =>
         alert(error)
