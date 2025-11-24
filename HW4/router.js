@@ -3,12 +3,16 @@ import {handleDownload} from "./handlers/downloadHandler.js";
 import {handleDelete} from "./handlers/deleteHandler.js";
 import {handleRename} from "./handlers/handleRename.js";
 import {sendError} from "./util/error.js";
+import {handleGzip} from "./handlers/handleGzip.js";
 
 export async function router(req, res) {
     const url = req.url;
     if(url === '/upload' && req.method === 'POST'){
         handleUpload(req,res);
-    }else if(url.startsWith('/upload') && req.method === 'DELETE'){
+    }else if(url.startsWith('/upload') && req.method === 'GET'){
+        handleGzip(req,res);
+    }
+    else if(url.startsWith('/upload') && req.method === 'DELETE'){
         await handleDelete(req,res)
     }else if(url.startsWith('/upload') && req.method === 'PUT'){
         await handleRename(req,res);
