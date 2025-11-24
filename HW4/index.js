@@ -5,8 +5,8 @@ import {DOWNLOAD_DIR, PORT, UPLOAD_DIR} from "./config.js";
 
 ensureDirExits(UPLOAD_DIR);
 ensureDirExits(DOWNLOAD_DIR);
-const server = http.createServer((req, res) => {
-    router(req, res)
+const server = http.createServer(async (req, res) => {
+    await router(req, res)
 })
 
 server.listen(PORT, () => {
