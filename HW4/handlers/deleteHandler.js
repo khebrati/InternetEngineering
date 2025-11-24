@@ -1,8 +1,9 @@
-import {extractFileName, getFilePath} from "../util/url.js";
+import {extractFileName} from "../util/requestParsers.js";
 import fs from 'node:fs/promises'
 import {sendError} from "../util/error.js";
 import {sendOk} from "../util/okResponse.js";
 import {UPLOAD_DIR} from "../config.js";
+import {getFilePath} from "../util/filesystem.js";
 
 export async function handleDelete(req, res) {
     try{
@@ -11,6 +12,6 @@ export async function handleDelete(req, res) {
         await fs.unlink(filePath);
         sendOk(res,fileName);
     }catch (e){
-        sendError(res,404);
+        sendError(res,404,e.message);
     }
 }

@@ -1,10 +1,10 @@
-import {getFullPath} from "../util/filesystem.js";
+import {getFilePath, getFullPath} from "../util/filesystem.js";
 import path from "node:path";
 import {DOWNLOAD_DIR} from "../config.js";
 import fs from "node:fs";
 import fsProm from "node:fs/promises";
 import {sendError} from "../util/error.js";
-import {extractFileName, getFilePath} from "../util/url.js";
+import {extractFileName} from "../util/requestParsers.js";
 
 const mimeTypes = {
     '.txt': 'text/plain',
@@ -36,20 +36,20 @@ export async function handleDownload(req, res) {
                 'Content-Type': contentType
             });
             const readStream = fs.createReadStream(filePath, {start, end});
-            readStream.on('error', () => {
-                sendError(res)
+            readStream.on('error', (err) => {
+                sendError(res,500,err.message)
             });
             readStream.pipe(res);
         } else {
             res.writeHead(200, {'Accept-Ranges': 'bytes', 'Content-Type': contentType});
             const readStream = fs.createReadStream(filePath);
-            readStream.on('error', () => {
-                sendError(res)
+            readStream.on('error', (err) => {
+                sendError(res,500,err.message)
             });
             readStream.pipe(res)
         }
     } catch (e) {
-        sendError(res, e)
+        sendError(res, 500,e.message)
     }
 }
 
