@@ -1,9 +1,10 @@
-import {getFullPath} from "./filesystem.js";
+import {getFullPath} from "../util/filesystem.js";
 import path from "node:path";
-import {DOWNLOAD_DIR} from "./config.js";
+import {DOWNLOAD_DIR} from "../config.js";
 import fs from "node:fs";
 import fsProm from "node:fs/promises";
-import {handleError} from "./error.js";
+import {sendError} from "../util/error.js";
+import {extractFileName, extractFilePath} from "../util/url.js";
 
 const mimeTypes = {
     '.txt': 'text/plain',
@@ -13,13 +14,13 @@ const mimeTypes = {
     '.zip': 'application/zip'
 }
 
+
 export async function handleDownload(req, res) {
     try {
-        const fileNameRegex = RegExp("/download/(.*)");
-        const fileName = fileNameRegex.exec(req.url)[1];
+        const fileName = extractFileName(req.url);
         const ext = path.extname(fileName)
         const contentType = mimeTypes[ext] || 'octet-stream'
-        const filePath = getFullPath(path.join(DOWNLOAD_DIR, fileName));
+        const filePath = extractFilePath(fileName,DOWNLOAD_DIR) ;
         const range = req.headers.range
         if (range) {
             const parts = range.replace("bytes=", "").split("-")
@@ -36,19 +37,19 @@ export async function handleDownload(req, res) {
             });
             const readStream = fs.createReadStream(filePath, {start, end});
             readStream.on('error', () => {
-                handleError(res)
+                sendError(res)
             });
             readStream.pipe(res);
         } else {
             res.writeHead(200, {'Accept-Ranges': 'bytes', 'Content-Type': contentType});
             const readStream = fs.createReadStream(filePath);
             readStream.on('error', () => {
-                handleError(res)
+                sendError(res)
             });
             readStream.pipe(res)
         }
     } catch (e) {
-        handleError(res, e)
+        sendError(res, e)
     }
 }
 

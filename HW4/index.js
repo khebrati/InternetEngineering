@@ -1,6 +1,6 @@
 import http from "node:http";
 import {router} from "./router.js";
-import {ensureDirExits} from "./filesystem.js";
+import {ensureDirExits} from "./util/filesystem.js";
 import {DOWNLOAD_DIR, PORT, UPLOAD_DIR} from "./config.js";
 
 ensureDirExits(UPLOAD_DIR);
