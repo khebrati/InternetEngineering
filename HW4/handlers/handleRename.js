@@ -12,8 +12,13 @@ export async function handleRename(req,res) {
         const body =  JSON.parse(await parseBody(req));
         const newFileName = body.newName;
         const newFilePath = getFilePath(newFileName,UPLOAD_DIR);
-        await fs.rename(oldFilePath,newFilePath)
-        sendOk(res,newFileName,`File renamed from ${oldFileName} to ${newFileName}`);
+        try {
+            await fs.access(newFilePath)
+            sendError( res,409,"","A file with this new name already exits!");
+        }catch (e){
+            await fs.rename(oldFilePath,newFilePath)
+            sendOk(res,newFileName,`File renamed from ${oldFileName} to ${newFileName}`);
+        }
     }catch (e) {
         sendError(res,404,e.message);
     }

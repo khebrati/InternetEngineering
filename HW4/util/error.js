@@ -1,10 +1,13 @@
-export function sendError(res, status = 500, error = "") {
+export function sendError(res, status = 500, error = "",message = "") {
     console.log(`error status: ${status} body: ${error}`);
-    if(status === 404){
+    if(message){
+        res.writeHead(status,{'Content-Type':'text/plain'});
+        res.end(message);
+    }else if(status === 404){
         res.writeHead(404,{'Content-Type':'text/plain'});
-        res.end('File not found');
+        res.end(`File not found.`);
     }else{
         res.writeHead(500,{'Content-Type':'text/plain'});
-        res.end(`Internal server error: ${error}`);
+        res.end(`Internal server error.`);
     }
 }
