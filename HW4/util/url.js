@@ -6,6 +6,6 @@ export function extractFileName(url, folderName = DOWNLOAD_DIR) {
     const fileNameRegex = RegExp("/" + folderName + "/(.*)");
     return fileNameRegex.exec(url)[1];
 }
-export function extractFilePath(fileName,folderName = DOWNLOAD_DIR) {
+export function getFilePath(fileName, folderName = DOWNLOAD_DIR) {
     return getFullPath(path.join(folderName, fileName));
 }

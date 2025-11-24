@@ -4,7 +4,7 @@ import {DOWNLOAD_DIR} from "../config.js";
 import fs from "node:fs";
 import fsProm from "node:fs/promises";
 import {sendError} from "../util/error.js";
-import {extractFileName, extractFilePath} from "../util/url.js";
+import {extractFileName, getFilePath} from "../util/url.js";
 
 const mimeTypes = {
     '.txt': 'text/plain',
@@ -20,7 +20,7 @@ export async function handleDownload(req, res) {
         const fileName = extractFileName(req.url);
         const ext = path.extname(fileName)
         const contentType = mimeTypes[ext] || 'octet-stream'
-        const filePath = extractFilePath(fileName,DOWNLOAD_DIR) ;
+        const filePath = getFilePath(fileName,DOWNLOAD_DIR) ;
         const range = req.headers.range
         if (range) {
             const parts = range.replace("bytes=", "").split("-")

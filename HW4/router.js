@@ -1,6 +1,7 @@
 import {handleUpload} from "./handlers/uploadHandler.js";
 import {handleDownload} from "./handlers/downloadHandler.js";
 import {handleDelete} from "./handlers/deleteHandler.js";
+import {handleRename} from "./handlers/handleRename.js";
 
 export async function router(req, res) {
     const url = req.url;
@@ -8,6 +9,8 @@ export async function router(req, res) {
         handleUpload(req,res);
     }else if(url.startsWith('/upload') && req.method === 'DELETE'){
         await handleDelete(req,res)
+    }else if(url.startsWith('/upload') && req.method === 'POST'){
+        await handleRename(req,res);
     }
     else if(url.startsWith(`/download`) && req.method === 'GET'){
         await handleDownload(req,res)
