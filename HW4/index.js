@@ -1,9 +1,10 @@
 import http from "node:http";
 import {router} from "./router.js";
 import {ensureDirExits} from "./filesystem.js";
-import {PORT, UPLOAD_DIR} from "./config.js";
+import {DOWNLOAD_DIR, PORT, UPLOAD_DIR} from "./config.js";
 
 ensureDirExits(UPLOAD_DIR);
+ensureDirExits(DOWNLOAD_DIR);
 const server = http.createServer((req, res) => {
     router(req, res)
 })
