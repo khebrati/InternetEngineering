@@ -2,7 +2,7 @@
   "name": "filemanagement",
   "version": "1.0.0",
   "description": "powerful filemanagement system",
-  "main": "index.js",
+  "main": "source/index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
