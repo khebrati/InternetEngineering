@@ -8,7 +8,7 @@ import fs from "node:fs";
 
 export function handleGzip(req, res) {
     try{
-        const fileName = extractFileName(req.url,UPLOAD_DIR);
+        const fileName = extractFileName(req.url,UPLOAD_DIR + '/compress');
         const filePath = getFilePath(fileName,UPLOAD_DIR);
         const zipFileName = `${fileName}.gz`
         const zipFilePath = getFilePath(zipFileName,UPLOAD_DIR);
