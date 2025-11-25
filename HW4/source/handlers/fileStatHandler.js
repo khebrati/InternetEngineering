@@ -18,8 +18,8 @@ export async function handleFileState(req, res) {
                 continue;
             }
             const uploadDate = regexArray[2]
-            //TODO add size
-            sendOk(res,file,'file_stat_read',{uploadDate: uploadDate});
+            const size = (await fs.stat(getFilePath(file, UPLOAD_DIR))).size
+            sendOk(res,file,'file_stat_read',{uploadDate: uploadDate,size: size});
             return;
         }catch (e){}
     }

@@ -53,7 +53,20 @@ Without backpressure, the fast-producing stream would overwhelm the slow-consumi
 
 ![image](before-postman.png)
 
-- Broadcasted response
+- Response of posting
 
-![image](broadcast-response.png)
+![image](post-result.png)
+
+- Before reading file state
+
+![image](before-stat-req.png)
+
+- File stat response
+
+![image](stat-response.png)
+
+- broadcasted messages
+
+![image](broadcasts.png)
+
 
