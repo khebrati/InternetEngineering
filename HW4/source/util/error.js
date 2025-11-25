@@ -1,5 +1,5 @@
 export function sendError(res, status = 500, error = "",message = "") {
-    console.log(`error status: ${status} body: ${error}`);
+    console.error(`error status: ${status} body: ${error}`);
     if(message){
         res.writeHead(status,{'Content-Type':'text/plain'});
         res.end(message);

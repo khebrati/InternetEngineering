@@ -7,8 +7,8 @@ import {sendError} from "../util/error.js";
 import {randomUUID} from 'node:crypto';
 
 export function handleUpload(req, res) {
-    const uuid = randomUUID();
-    const date = new Date().toISOString()
+    const uuid = randomUUID().replaceAll('-',"");
+    const date = new Date().toISOString();
     const fileName = `${uuid}-${date}`;
     const filePath = getFullPath(path.join(UPLOAD_DIR,fileName));
     const fileWriteStream = fs.createWriteStream(filePath)
