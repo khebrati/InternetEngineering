@@ -5,6 +5,8 @@ import fs from "node:fs";
 import fsProm from "node:fs/promises";
 import {sendError} from "../util/error.js";
 import {extractFileName} from "../util/requestParsers.js";
+import {broadcastString, broadcastMessage} from "../webSocket.js";
+import {Message} from "../util/okResponse.js";
 
 const mimeTypes = {
     '.txt': 'text/plain',
@@ -29,6 +31,7 @@ export async function handleDownload(req, res) {
             const fileSize = stat.size;
             const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
             const chunkSize = (end - start) + 1;
+            broadcastMessage('file_downloaded',fileName)
             res.writeHead(206, {
                 'Content-Range': `bytes ${start}-${end}/${fileSize}`,
                 'Accept-Ranges': 'bytes',
@@ -41,6 +44,7 @@ export async function handleDownload(req, res) {
             });
             readStream.pipe(res);
         } else {
+            broadcastMessage('file_downloaded',fileName)
             res.writeHead(200, {'Accept-Ranges': 'bytes', 'Content-Type': contentType});
             const readStream = fs.createReadStream(filePath);
             readStream.on('error', (err) => {
@@ -49,7 +53,7 @@ export async function handleDownload(req, res) {
             readStream.pipe(res)
         }
     } catch (e) {
-        sendError(res, 500,e.message)
+        sendError(res, 404,e.message)
     }
 }
 

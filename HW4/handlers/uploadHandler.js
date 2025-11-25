@@ -14,6 +14,6 @@ export function handleUpload(req, res) {
     });
     req.pipe(fileWriteStream);
     req.on('end',() => {
-        sendOk(res,fileName,"Upload successful");
+        sendOk(res,fileName,'file_uploaded');
     });
 }

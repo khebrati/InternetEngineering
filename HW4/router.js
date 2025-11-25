@@ -10,9 +10,9 @@ export async function router(req, res) {
     const url = req.url;
     if(url === '/upload' && req.method === 'POST'){
         handleUpload(req,res);
-    }else if(url.startsWith('/upload/compression') && req.method === 'GET'){
+    }else if(url.startsWith('/upload/compress') && req.method === 'GET'){
         handleGzip(req,res);
-    }else if(url.startsWith('/upload/encryption') && req.method === 'GET'){
+    }else if(url.startsWith('/upload/encrypt') && req.method === 'GET'){
         await handleEncryption(req, res);
     }
     else if(url.startsWith('/upload') && req.method === 'DELETE'){

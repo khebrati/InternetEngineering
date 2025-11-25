@@ -18,7 +18,7 @@ export function handleGzip(req, res) {
         readStream.pipe(gzip).pipe(writeStream).on('error',(err) => {
             sendError(res,404,err.message);
         }).on('finish',() => {
-            sendOk(res,zipFileName);
+            sendOk(res,zipFileName,'file_compressed');
         })
     }catch (e){
         sendError(res,404,e);

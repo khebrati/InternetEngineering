@@ -10,7 +10,7 @@ export async function handleDelete(req, res) {
         const fileName  = extractFileName(req.url,UPLOAD_DIR);
         const filePath = getFilePath(fileName,UPLOAD_DIR);
         await fs.unlink(filePath);
-        sendOk(res,fileName);
+        sendOk(res,fileName,'file_deleted');
     }catch (e){
         sendError(res,404,e.message);
     }
