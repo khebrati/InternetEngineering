@@ -1,0 +1,3 @@
+[submodule "AudiosenseBackend"]
+	path = AudiosenseBackend
+	url = https://github.com/khebrati/AudiosenseBackend.git
