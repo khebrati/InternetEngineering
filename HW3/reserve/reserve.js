@@ -1,6 +1,21 @@
 let seats = null;
 let movies = null;
 
+async function checkAuthAndInit() {
+    try {
+        const response = await fetch('/api/check-auth');
+        const data = await response.json();
+
+        if (data.authenticated) {
+            // Sync user data to localStorage
+            localStorage.setItem("user", JSON.stringify(data.user));
+        }
+        // If not authenticated, the server would have already redirected us
+    } catch (error) {
+        console.error("Auth check error:", error);
+    }
+}
+
 
 async function setMoviePoster(movie) {
     const posterImageEl = document.getElementById("movie-poster");
@@ -94,6 +109,7 @@ function generateSeats() {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
+    await checkAuthAndInit();
     generateSeats();
     await initDataFromFile();
     updateUi();
@@ -180,7 +196,7 @@ function reserveSeat() {
         "seats": selectedSeats.map(seat => seat.key)
     }
     console.log(reservationData);
-    fetch("https://reqres.in/api/users", {
+    fetch("https://jsonplaceholder.typicode.com/posts", {
         method: "Post",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(reservationData)

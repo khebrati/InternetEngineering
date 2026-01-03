@@ -1,5 +1,4 @@
 extends layout
-
 block content
     p Notes:
     table
@@ -10,6 +9,6 @@ block content
         each note in notes
             tr
                 td
-                    a(href=`/note/${note._id}/view`) view
-                td=note.title
-                td=note.date
+                    a(href=`/note/${headphone._id}/view`) view
+                td=headphone.title
+                td=headphone.date

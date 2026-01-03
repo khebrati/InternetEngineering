@@ -1,0 +1,16 @@
+extends layout
+
+block content
+
+    h1= message
+    form(action='/user/login',method='post')
+        div(class='create-main-box')
+            p Username
+            div(class='')
+                input(type='text' name='username' style='width:27vw')
+            p Password
+            div(class='')
+                input(type="password", name='password' style='width:27vw') 
+            div(class='')
+                input(type='submit' value='Login  User' style='margin-top:20px') 
+

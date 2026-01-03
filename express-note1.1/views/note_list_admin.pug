@@ -1,0 +1,20 @@
+extends layout
+
+block content
+    p Notes:
+    table
+        tr 
+            th View
+            th Delete
+            th Title 
+            th Date
+            th Username
+        each note in notes
+            tr
+                td
+                    a(href=`/note/${note._id}/view`) view
+                td
+                    a(href=`/note/${note._id}/delete`) delete
+                td=note.title
+                td=note.date
+                td=note.user_id.username

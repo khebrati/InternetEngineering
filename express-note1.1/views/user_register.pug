@@ -1,0 +1,19 @@
+extends layout
+
+block content
+
+    h1= message
+    form(action='/user/register',method='post')
+        div(class='create-main-box')
+            p Username
+            div(class='')
+                input(type='text' name='username' style='width:27vw')
+            p Email
+            div(class='')
+                input(type="text", name='email' style='width:27vw') 
+            p Password
+            div(class='')
+                input(type="password", name='password' style='width:27vw') 
+            div(class='')
+                input(type='submit' value='Register User' style='margin-top:20px') 
+

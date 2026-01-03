@@ -9,23 +9,21 @@ import {handleFileState} from "./handlers/fileStatHandler.js";
 
 export async function router(req, res) {
     const url = req.url;
-    if(url === '/upload' && req.method === 'POST') {
+    if (url === '/upload' && req.method === 'POST') {
         handleUpload(req, res);
-    }else if(url.startsWith('/upload/compress') && req.method === 'GET'){
-        handleGzip(req,res);
-    }else if(url.startsWith('/upload/encrypt') && req.method === 'GET'){
+    } else if (url.startsWith('/upload/compress') && req.method === 'GET') {
+        handleGzip(req, res);
+    } else if (url.startsWith('/upload/encrypt') && req.method === 'GET') {
         await handleEncryption(req, res);
-    }else if(RegExp("/upload/\\w+").exec(url)){
-        await handleFileState(req,res);
-    }
-    else if(url.startsWith('/upload') && req.method === 'DELETE'){
-        await handleDelete(req,res)
-    }else if(url.startsWith('/upload') && req.method === 'PUT'){
-        await handleRename(req,res);
-    }
-    else if(url.startsWith(`/download`) && req.method === 'GET'){
-        await handleDownload(req,res)
-    }else{
-        sendError(res,404)
+    } else if (url.startsWith('/upload') && req.method === 'DELETE') {
+        await handleDelete(req, res)
+    } else if (url.startsWith('/upload') && req.method === 'PUT') {
+        await handleRename(req, res);
+    } else if (RegExp("/upload/\\w+").exec(url)) {
+        await handleFileState(req, res);
+    } else if (url.startsWith(`/download`) && req.method === 'GET') {
+        await handleDownload(req, res)
+    } else {
+        sendError(res, 404)
     }
 }
