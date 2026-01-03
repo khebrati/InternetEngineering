@@ -2,17 +2,11 @@ let seats = null;
 let movies = null;
 
 async function checkAuthAndInit() {
-    try {
-        const response = await fetch('/api/check-auth');
-        const data = await response.json();
+    const response = await fetch('/api/check-auth');
+    const data = await response.json();
 
-        if (data.authenticated) {
-            // Sync user data to localStorage
-            localStorage.setItem("user", JSON.stringify(data.user));
-        }
-        // If not authenticated, the server would have already redirected us
-    } catch (error) {
-        console.error("Auth check error:", error);
+    if (data.authenticated) {
+        localStorage.setItem("user", JSON.stringify(data.user));
     }
 }
 
@@ -79,7 +73,7 @@ async function updateUi() {
         seatUi.dataset.reserved = stateSeat.reserved;
         seatUi.dataset.selected = stateSeat.selected;
     }
-    setSimpleId("movie-time",selectedMovie.time);
+    setSimpleId("movie-time", selectedMovie.time);
 }
 
 function setSimpleId(id, text) {
@@ -181,12 +175,12 @@ function prevMovie() {
 
 function reserveSeat() {
     const selectedSeats = getSelectedMovie().seats.filter(seat => seat.selected);
-    if(selectedSeats.length <= 0){
+    if (selectedSeats.length <= 0) {
         alert("Select a seat!");
         return;
     }
     const userData = JSON.parse(localStorage.getItem("user"))
-    const  selectedMovie = getSelectedMovie();
+    const selectedMovie = getSelectedMovie();
     const reservationData = {
         "name": userData.name,
         "email": userData.email,
@@ -201,13 +195,13 @@ function reserveSeat() {
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(reservationData)
     }).then((response) => {
-        if(response.ok){
-            for(let seat of selectedSeats){
+        if (response.ok) {
+            for (let seat of selectedSeats) {
                 seat.selected = false;
                 seat.reserved = true;
             }
             updateUi();
-        }else{
+        } else {
             alert(`Got error with code: ${response.status}`)
         }
     }).catch((error) =>

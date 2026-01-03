@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded",() => {
+document.addEventListener("DOMContentLoaded", () => {
     listenForLogin();
 });
 
@@ -7,7 +7,7 @@ function getRedirectUrl() {
     return urlParams.get('redirect');
 }
 
-function listenForLogin(){
+function listenForLogin() {
     const loginForm = document.getElementById("userInfoForm");
     loginForm.addEventListener("submit", async (event) => {
         event.preventDefault();
@@ -15,35 +15,28 @@ function listenForLogin(){
         const email = document.getElementById("email").value
         const mobile = document.getElementById("mobile").value
         const user = {
-            name : name,
-            email : email,
-            mobile : mobile
+            name: name,
+            email: email,
+            mobile: mobile
         };
 
-        try {
-            // Send login data to server to set cookie
-            const response = await fetch('/api/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(user)
-            });
+        const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(user)
+        });
 
-            if (response.ok) {
-                // Also store in localStorage for client-side use
-                localStorage.setItem("user", JSON.stringify(user));
+        if (response.ok) {
+            localStorage.setItem("user", JSON.stringify(user));
 
-                // Check if there's a redirect URL in query params
-                const redirectUrl = getRedirectUrl();
-                if (redirectUrl) {
-                    window.location.href = redirectUrl;
-                } else {
-                    window.location.href = "/reserve/reserve.html";
-                }
+            // Check if there's a redirect URL in query params
+            const redirectUrl = getRedirectUrl();
+            if (redirectUrl) {
+                window.location.href = redirectUrl;
             } else {
-                alert("Login failed. Please try again.");
+                window.location.href = "/reserve/reserve.html";
             }
-        } catch (error) {
-            console.error("Login error:", error);
+        } else {
             alert("Login failed. Please try again.");
         }
     });

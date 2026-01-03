@@ -1,61 +1,69 @@
-const express = require('express');
-const cookieParser = require('cookie-parser');
-const path = require('path');
+import { v4 as uuidv4 } from 'uuid';
+import express from 'express';
+import cookieParser from 'cookie-parser';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const app = express();
 const PORT = 3000;
+
+// In-memory session store (use Redis or database in production)
+const sessions = new Map();
 
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// API endpoint to check if user is logged in
 app.get('/api/check-auth', (req, res) => {
-    const user = req.cookies.user;
-    if (user) {
-        res.json({ authenticated: true, user: JSON.parse(user) });
+    const sessionToken = req.cookies.sessionToken;
+    const session = sessions.get(sessionToken);
+
+    if (session) {
+        res.json({ authenticated: true, user: session.user });
     } else {
         res.json({ authenticated: false });
     }
 });
 
-// API endpoint to login user (sets cookie)
 app.post('/api/login', (req, res) => {
     const { name, email, mobile } = req.body;
     const user = { name, email, mobile };
 
-    // Set cookie that expires in 24 hours
-    res.cookie('user', JSON.stringify(user), {
+    // Generate secure session token using UUID v4
+    const sessionToken = uuidv4();
+
+    // Store session server-side
+    sessions.set(sessionToken, {
+        user,
+        createdAt: Date.now()
+    });
+
+    res.cookie('sessionToken', sessionToken, {
         maxAge: 24 * 60 * 60 * 1000,
-        httpOnly: false // Allow JavaScript access for localStorage sync
+        httpOnly: true,
     });
 
     res.json({ success: true, user });
 });
 
-// API endpoint to logout
-app.post('/api/logout', (req, res) => {
-    res.clearCookie('user');
-    res.json({ success: true });
-});
 
-// Middleware to check authentication for reserve page
 app.get('/reserve/reserve.html', (req, res, next) => {
-    const user = req.cookies.user;
+    const sessionToken = req.cookies.sessionToken;
+    const session = sessions.get(sessionToken);
 
-    if (!user) {
-        // Redirect to login with 301 and redirect query parameter
+    if (!session) {
         const redirectUrl = `http://localhost:${PORT}/reserve/reserve.html`;
-        return res.redirect(301, `/login/login.html?redirect=${encodeURIComponent(redirectUrl)}`);
+        return res.redirect(301, `/login/login.html?redirect=${redirectUrl}`);
     }
 
     next();
 });
 
-// Serve static files
 app.use(express.static(path.join(__dirname)));
 
-// Root redirect to login
 app.get('/', (req, res) => {
     res.redirect('/login/login.html');
 });
